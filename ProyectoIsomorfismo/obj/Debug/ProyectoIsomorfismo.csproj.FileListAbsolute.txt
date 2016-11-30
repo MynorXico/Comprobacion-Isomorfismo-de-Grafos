@@ -1,0 +1,9 @@
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe.config
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.pdb
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csprojResolveAssemblyReference.cache
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Form1.resources
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Properties.Resources.resources
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csproj.GenerateResource.Cache
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.exe
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.pdb
