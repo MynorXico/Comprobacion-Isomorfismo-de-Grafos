@@ -23,5 +23,15 @@ namespace ProyectoIsomorfismo
         {
             grado = verticesConectados.Count();
         }
+
+        public List<Vertice> listaVerticesPorEtiqueta(Vertice v, Grafo g)
+        {
+            List<Vertice> resultado = new List<Vertice>();
+            foreach(Vertice vertice in v.verticesConectados)
+            {
+                resultado.Add(g.verticePorEtiqueta(vertice.etiqueta));
+            }
+            return resultado;
+        }
     }
 }

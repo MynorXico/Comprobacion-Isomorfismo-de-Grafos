@@ -9,11 +9,30 @@ namespace ProyectoIsomorfismo
 {
     class Isomorfismo
     {
+
+        struct relacion
+        {
+            public Vertice v1;
+            public Vertice v2;
+        }
+
+        static int posicionEnLista(List<relacion> lista, Vertice v1)
+        {
+            for(int i = 0; i < lista.Count; i++)
+            {
+                if(lista[i].v1.etiqueta == v1.etiqueta)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         public static bool comprobarIsomorfismo(Grafo g1, Grafo g2)
         {
-            if (!(mismaCantidadAristas(g1,g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2)))
+            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & encontrarFuncion(g1, g2))){
                 return false;
-
+            }
             return true;
         }
 
@@ -65,27 +84,76 @@ namespace ProyectoIsomorfismo
 
         static bool encontrarFuncion(Grafo g1, Grafo g2)
         {
-               
+            List<relacion> listaFuncion = new List<relacion>();
+            List<Vertice> v1 = g1.lstVertices;
+            List<Vertice> v2 = g2.lstVertices;
+            return funcionRecursiva(v1[0], v2[0], g1, g2, listaFuncion);
         }
 
-        static bool funcionRecursiva(Vertice v1, Vertice v2)
+
+        static bool funcionRecursiva(Vertice v1, Vertice v2, Grafo g1, Grafo g2, List<relacion> listaFuncion)
         {
-            if (v1.grado != v2.grado)
-                return false;
-            List<string> vertices1 = new List<string>();
-            foreach(Vertice v in v1.verticesConectados)
+       
+            List<Vertice> lista1 = v1.listaVerticesPorEtiqueta(v1, g1);
+            List<List<Vertice>> permutacionesListaVertice2 = generarCombinaciones(v2.listaVerticesPorEtiqueta(v2, g2), g2);
+            for(int i = 0; i < permutacionesListaVertice2.Count; i++)
             {
-                vertices1.Add(v.etiqueta);
-            }
-            List<string> vertices2 = new List<string>();
-            foreach (Vertice v in v2.verticesConectados)
-            {
-                vertices1.Add(v.etiqueta);
+                if(gradosListasCoinciden(lista1, permutacionesListaVertice2[i]))
+                {
+                    for (int j = 0; j < lista1.Count; j++)
+                    {
+                        relacion cmp = new relacion();
+                        cmp.v1 = v1;
+                        cmp.v2 = v2;
+                        if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta == v2.etiqueta)
+                        {
+                            listaFuncion.Add(cmp);
+                            return true;
+                        }
+                        else if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta != v2.etiqueta)
+                        {
+                            listaFuncion.Remove(listaFuncion.Last<relacion>());
+                            return false;
+                        }
+                        else if (funcionRecursiva(lista1[j], permutacionesListaVertice2[i][j], g1, g2, listaFuncion))
+                        {
+                            listaFuncion.Add(cmp);
+                            return true;
+                        }
+                    }
+                }
             }
 
-            return true;
-        }  
+            return false;
+        }
+
+        
        
+        static List<List<Vertice>> generarCombinaciones(List<Vertice> listaPermutar, Grafo g)
+        {
+
+            List<List<Vertice>> lista = new List<List<Vertice>>();
+            lista.Add(listaPermutar[0].listaVerticesPorEtiqueta(listaPermutar[0], g));
+            return lista;
+        }
+
+        /// <summary>
+        /// Verifica que dos listas tengan los mismos grados en el mismo orden
+        /// </summary>
+        /// <param name="lista1"> Primera lista</param>
+        /// <param name="lista2"> Segunda lista</param>
+        /// <returns> Verdadero si coinciden los grados en el mismo orden en la listas. </returns>
+        private static bool gradosListasCoinciden(List<Vertice> lista1, List<Vertice> lista2)
+        {
+            int k = 0;
+            foreach (Vertice v in lista1) {
+                if (v.grado != lista2[k++].grado)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
 
         private static bool gradoCoincide(Vertice v1, Vertice v2)

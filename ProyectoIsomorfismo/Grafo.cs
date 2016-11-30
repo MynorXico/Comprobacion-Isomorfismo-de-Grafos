@@ -25,6 +25,7 @@ namespace ProyectoIsomorfismo
                 if (v.etiqueta == etiqueta)
                     return v;
             return nuevoVertice;
-        }
+        }        
+        
     }
 }

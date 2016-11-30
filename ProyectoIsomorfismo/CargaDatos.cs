@@ -60,6 +60,7 @@ namespace ProyectoIsomorfismo
             foreach(Vertice v in listaVertices)
             {
                 v.calcularGrado();
+                v.asignarID();
             }
 
             g1 = new Grafo(numeroVertices, numeroAristas, listaVertices);
