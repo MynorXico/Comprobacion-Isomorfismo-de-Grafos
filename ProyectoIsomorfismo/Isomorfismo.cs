@@ -87,7 +87,18 @@ namespace ProyectoIsomorfismo
             List<relacion> listaFuncion = new List<relacion>();
             List<Vertice> v1 = g1.lstVertices;
             List<Vertice> v2 = g2.lstVertices;
-            return funcionRecursiva(v1[0], v2[0], g1, g2, listaFuncion);
+            List<List<Vertice>> permutacionesV2 = generarCombinaciones(v2, g2);
+            foreach(List<Vertice> list in permutacionesV2)
+            {
+                for (int i = 0; i < v1.Count; i++)
+                {
+                    if (funcionRecursiva(v1[i], list[i], g1, g2, listaFuncion))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
 
@@ -115,10 +126,12 @@ namespace ProyectoIsomorfismo
                             listaFuncion.Remove(listaFuncion.Last<relacion>());
                             return false;
                         }
-                        else if (funcionRecursiva(lista1[j], permutacionesListaVertice2[i][j], g1, g2, listaFuncion))
+                        else
                         {
                             listaFuncion.Add(cmp);
-                            return true;
+                            if (funcionRecursiva(lista1[j], permutacionesListaVertice2[i][j], g1, g2, listaFuncion)){
+                                return true;
+                            }
                         }
                     }
                 }
@@ -131,9 +144,8 @@ namespace ProyectoIsomorfismo
        
         static List<List<Vertice>> generarCombinaciones(List<Vertice> listaPermutar, Grafo g)
         {
-
-            List<List<Vertice>> lista = new List<List<Vertice>>();
-            lista.Add(listaPermutar[0].listaVerticesPorEtiqueta(listaPermutar[0], g));
+            Permutador permuta = new Permutador();
+            List<List<Vertice>> lista = permuta.combinar(listaPermutar);
             return lista;
         }
 
@@ -145,6 +157,8 @@ namespace ProyectoIsomorfismo
         /// <returns> Verdadero si coinciden los grados en el mismo orden en la listas. </returns>
         private static bool gradosListasCoinciden(List<Vertice> lista1, List<Vertice> lista2)
         {
+            if (lista1.Count != lista2.Count)
+                return false;
             int k = 0;
             foreach (Vertice v in lista1) {
                 if (v.grado != lista2[k++].grado)

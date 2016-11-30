@@ -12,13 +12,17 @@ namespace ProyectoIsomorfismo
         public string etiqueta { get; set; }
         public List<Vertice> verticesConectados { get; set;}
         public int grado { get; set; }
-
+        public int ID { get; set; }
         public Vertice()
         {
             verticesConectados = new List<Vertice>();
             grado = 0;
         }
 
+        public void asignarID()
+        {
+            ID = Convert.ToInt32(etiqueta) + 65;
+        }
         public void calcularGrado()
         {
             grado = verticesConectados.Count();
