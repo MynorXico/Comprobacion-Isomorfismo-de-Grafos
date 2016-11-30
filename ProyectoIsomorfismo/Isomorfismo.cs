@@ -30,7 +30,7 @@ namespace ProyectoIsomorfismo
 
         public static bool comprobarIsomorfismo(Grafo g1, Grafo g2)
         {
-            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & encontrarFuncion(g1, g2))){
+            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & funcionIsomorfisoXMatriz(g1, g2))){
                 return false;
             }
             return true;
@@ -82,7 +82,7 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
-        static bool encontrarFuncion(Grafo g1, Grafo g2)
+        static List<relacion> encontrarFuncion(Grafo g1, Grafo g2)
         {
             List<relacion> listaFuncion = new List<relacion>();
             List<Vertice> v1 = g1.lstVertices;
@@ -94,11 +94,11 @@ namespace ProyectoIsomorfismo
                 {
                     if (funcionRecursiva(v1[i], list[i], g1, g2, listaFuncion))
                     {
-                        return true;
+                        return listaFuncion;
                     }
                 }
             }
-            return false;
+            return null;
         }
 
 
@@ -118,10 +118,11 @@ namespace ProyectoIsomorfismo
                         cmp.v2 = v2;
                         if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta == v2.etiqueta)
                         {
-                            listaFuncion.Add(cmp);
+                           
                             return true;
+                            
                         }
-                        else if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta != v2.etiqueta)
+                        if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta != v2.etiqueta)
                         {
                             listaFuncion.Remove(listaFuncion.Last<relacion>());
                             return false;
@@ -138,13 +139,11 @@ namespace ProyectoIsomorfismo
             }
 
             return false;
-        }
-
-        
+        }        
        
         static List<List<Vertice>> generarCombinaciones(List<Vertice> listaPermutar, Grafo g)
         {
-            Permutador permuta = new Permutador();
+            PermutadorVertices permuta = new PermutadorVertices();
             List<List<Vertice>> lista = permuta.combinar(listaPermutar);
             return lista;
         }
@@ -169,7 +168,6 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
-
         private static bool gradoCoincide(Vertice v1, Vertice v2)
         {
             return v1.grado == v2.grado;
@@ -182,6 +180,38 @@ namespace ProyectoIsomorfismo
                 if (v.etiqueta == s)
                 {
                     return true;
+                }
+            }
+            return false;
+        }
+
+        
+
+
+        static bool coincidenciaMatrices(MatrizIncidencia matriz1, MatrizIncidencia matriz2)
+        {
+            for(int i = 0; i < matriz1.matriz.Count; i++)
+            {
+                for(int j = 0; j < matriz1.matriz[0].Count; j++)
+                {
+                    if (matriz1.matriz[j][i] != matriz2.matriz[j][i])
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        static bool funcionIsomorfisoXMatriz(Grafo g1, Grafo g2)
+        {
+            List<MatrizIncidencia> matrices1 = g1.generarMatrices();
+            List<MatrizIncidencia> matrices2 = g2.generarMatrices();
+
+            foreach(MatrizIncidencia matriz1 in matrices1)
+            {
+                foreach(MatrizIncidencia matriz2 in matrices2)
+                {
+                    if (matriz1.Equivalent(matriz2))
+                        return true;
                 }
             }
             return false;
