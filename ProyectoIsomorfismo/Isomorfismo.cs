@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Diagnostics;
 namespace ProyectoIsomorfismo
 {
-    class Isomorfismo
+    struct funcion
     {
-
+        public List<Vertice> V1;
+        public List<Vertice> V2;
+    }
+    class Isomorfismo
+    {        
         struct relacion
         {
             public Vertice v1;
@@ -28,9 +32,11 @@ namespace ProyectoIsomorfismo
             return -1;
         }
 
-        public static bool comprobarIsomorfismo(Grafo g1, Grafo g2)
+        public static bool comprobarIsomorfismo(Grafo g1, Grafo g2, ProgressBar barraProgreso, ComboBox cbFunciones, ref List<funcion> listaFunciones)
         {
-            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & encuentraFuncionAdyacencia(g1, g2))){
+            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) && encuentraFuncionAdyacencia(g1, g2, barraProgreso, cbFunciones, ref listaFunciones))){
+                barraProgreso.Maximum = 1;
+                barraProgreso.Value++;
                 return false;
             }
             return true;
@@ -236,8 +242,11 @@ namespace ProyectoIsomorfismo
         }
 
 
-        static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2)
+        static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2, ProgressBar barraProgreso, ComboBox cbFunciones, ref List<funcion> listaFunciones)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            List<funcion> lstFuncionesEncontradas = new List<funcion>();
             bool pruebaSuperada = false;
             PermutadorVertices p = new PermutadorVertices();
             List<Vertice> vertices1 = g1.lstVertices;
@@ -245,28 +254,29 @@ namespace ProyectoIsomorfismo
             Matriz matrizAdyacencia1 = g1.matrizAdyacencia();
             Matriz matrizAdyacencia2 = g2.matrizAdyacencia();
 
+            barraProgreso.Maximum = permutacionesV2.Count;
+            int numeroFunciones = 0;
 
-            foreach(List<Vertice> vertices2 in permutacionesV2)
+            foreach (List<Vertice> vertices2 in permutacionesV2)
             {
+                
+                barraProgreso.Value++;
                 Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1, vertices2);
                 if(matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(posibleMatriz)))){
-                    string msg = String.Format("Grafo1: {0}\nGrafo2: {1}", imprimirListaVertices(vertices1), imprimirListaVertices(vertices2));
-                    MessageBox.Show(msg);
+                    funcion funcionNueva = new funcion();
+                    funcionNueva.V1 = vertices1;
+                    funcionNueva.V2 = vertices2;
+                    lstFuncionesEncontradas.Add(funcionNueva);
+                    numeroFunciones++;
+                    cbFunciones.Items.Add(string.Format("Funcion #{0}", numeroFunciones));
                     pruebaSuperada = true;
                 }
             }
-
+            listaFunciones = lstFuncionesEncontradas;
+            sw.Stop();
+            string msg = String.Format("El programa tardó {0}ms en encontrar las funciones", sw.ElapsedMilliseconds);
+            MessageBox.Show(msg, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return pruebaSuperada;
-        }
-
-        static string imprimirListaVertices(List<Vertice> lista1)
-        {
-            string result = "   ";
-            foreach(Vertice v in lista1)
-            {
-                result += v.etiqueta + "\t";
-            }
-            return result;
         }
     }
 }

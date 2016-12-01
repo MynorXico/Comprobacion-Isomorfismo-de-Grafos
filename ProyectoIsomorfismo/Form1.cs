@@ -16,6 +16,7 @@ namespace ProyectoIsomorfismo
     {
         Grafo g1;
         Grafo g2;
+        List<funcion> listaFunciones;
         public Form1()
         {
             InitializeComponent();
@@ -59,23 +60,59 @@ namespace ProyectoIsomorfismo
 
         private void Reiniciar()
         {
+            pbLoading.Value = 0;
+            pbLoading.Maximum = 0;
             btnGrafo1.Enabled = true;
             btnGrafo2.Enabled = true;
             btnComprobar.Enabled = false;
+            cbFunciones.Enabled = false;
+            cbFunciones.Items.Clear();
+            dgvMostrarFuncion.Enabled = false;
+            dgvMostrarFuncion.DataSource = null;
+            while(dgvMostrarFuncion.Rows.Count != 0)
+            {
+                dgvMostrarFuncion.Rows.RemoveAt(0);
+            }
         }
 
         private void btnComprobar_Click(object sender, EventArgs e)
         {
-            if(!Isomorfismo.comprobarIsomorfismo(g1, g2))
+            if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, ref listaFunciones))
             {
-                MessageBox.Show("Los grafos no son isomorfos", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Reiniciar();
+                MessageBox.Show("Los grafos no son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("ajsldñflkajskldpflakñjsldkjfñlkj");
-                Reiniciar();
+                cbFunciones.Enabled = true;
+                dgvMostrarFuncion.Enabled = true;
+                MessageBox.Show("Los grafos son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            btnComprobar.Enabled = false;
+        }
+
+        private void cbFunciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(dgvMostrarFuncion.Rows.Count != g1.cantidadVertices)
+            {
+                for(int i = 0; i < g1.cantidadVertices; i++)
+                {
+                    dgvMostrarFuncion.Rows.Add();
+                }
+            }
+
+            for(int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
+            {
+                dgvMostrarFuncion[0, i].Value = listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta;
+                dgvMostrarFuncion[1, i].Value = listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta;
+            }
+
+
+        }
+
+        private void cargarDatosDeNuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Reiniciar();
+            
         }
     }
 }

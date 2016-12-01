@@ -42,6 +42,7 @@ namespace ProyectoIsomorfismo
                     if ((int)permutacion[i] == listaVertices[j].ID)
                     {
                         numeros.Add(listaVertices[j]);
+                        /////////
                         break;
                     }
                 }
