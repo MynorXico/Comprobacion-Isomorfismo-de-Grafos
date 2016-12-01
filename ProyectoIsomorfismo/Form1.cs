@@ -60,6 +60,8 @@ namespace ProyectoIsomorfismo
 
         private void Reiniciar()
         {
+            pbLoading.Value = 0;
+            pbLoading.Maximum = 0;
             btnGrafo1.Enabled = true;
             btnGrafo2.Enabled = true;
             btnComprobar.Enabled = false;
@@ -85,6 +87,7 @@ namespace ProyectoIsomorfismo
                 dgvMostrarFuncion.Enabled = true;
                 MessageBox.Show("Los grafos son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            btnComprobar.Enabled = false;
         }
 
         private void cbFunciones_SelectedIndexChanged(object sender, EventArgs e)
@@ -109,6 +112,7 @@ namespace ProyectoIsomorfismo
         private void cargarDatosDeNuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Reiniciar();
+            
         }
     }
 }

@@ -26,7 +26,15 @@ namespace ProyectoIsomorfismo
             Grafo g1;
             
             string[] lineas = File.ReadAllLines(ofd.FileName);
-            int numeroVertices = Convert.ToInt32(lineas[0].Split(' ')[0]);
+            int numeroVertices = 0;
+            try {
+                numeroVertices = Convert.ToInt32(lineas[0].Split(' ')[0]);
+            }
+            catch(FormatException e)
+            {
+                MessageBox.Show("El archivo ingresado no se encuentra en el formato correcto.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             int numeroAristas = 0;
             for(int i = 1; i < lineas.Length; i++)
             {
@@ -47,7 +55,13 @@ namespace ProyectoIsomorfismo
                         {
                             if (j == 0) {
                                 Vertice v = new Vertice();
-                                v.etiqueta = lineas[i].Split(',')[1];
+                                try {
+                                    v.etiqueta = lineas[i].Split(',')[1];
+                                }
+                                catch(IndexOutOfRangeException e)
+                                {
+                                    return false;
+                                }
                                 v2.verticesConectados.Add(v);
                             }
                             else
@@ -66,7 +80,14 @@ namespace ProyectoIsomorfismo
                 v.asignarID();
             }
 
-            g1 = new Grafo(numeroVertices, numeroAristas, listaVertices, listaAristas);
+            try {
+                g1 = new Grafo(numeroVertices, numeroAristas, listaVertices, listaAristas);
+            }
+            catch
+            {
+                MessageBox.Show("Verifique que no existan espacios en blanco en el archivo de texto.", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return false;
+            }
             g = g1;
             return true;
         }

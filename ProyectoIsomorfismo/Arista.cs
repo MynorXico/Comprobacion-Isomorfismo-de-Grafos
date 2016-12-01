@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace ProyectoIsomorfismo
 {
     public class Arista
@@ -15,7 +15,14 @@ namespace ProyectoIsomorfismo
         {
             ID = id;
             from = arreglo[0];
-            to = arreglo[1];
+            try
+            {
+                to = arreglo[1];
+            }
+            catch
+            {
+                MessageBox.Show("Verifique que el archivo de texto no tenga espacios en blanco.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

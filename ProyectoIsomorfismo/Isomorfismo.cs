@@ -13,8 +13,7 @@ namespace ProyectoIsomorfismo
         public List<Vertice> V2;
     }
     class Isomorfismo
-    {
-        
+    {        
         struct relacion
         {
             public Vertice v1;
