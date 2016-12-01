@@ -30,7 +30,7 @@ namespace ProyectoIsomorfismo
 
         public static bool comprobarIsomorfismo(Grafo g1, Grafo g2)
         {
-            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & funcionIsomorfisoXMatriz(g1, g2))){
+            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & encuentraFuncionAdyacencia(g1, g2))){
                 return false;
             }
             return true;
@@ -201,10 +201,28 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
+        static bool funcionIsomorfismoMatrizAdyacencia(Grafo g1, Grafo g2)
+        {
+            MatrizIncidencia listaMatrices1 = g1.generarMatricesAdyacencia(g2.generarMatrizAdyacencia());
+
+            if(listaMatrices1!= null)
+            {
+                MessageBox.Show("FUCK YEAH");
+                return true;
+            }
+            /*foreach(MatrizIncidencia matriz in listaMatrices1)
+            {
+                if (matriz.Equivalent(g2.generarMatrizAdyacencia()))
+                {
+                    return true;
+                }
+            }*/
+            return false;
+        }
         static bool funcionIsomorfisoXMatriz(Grafo g1, Grafo g2)
         {
-            List<MatrizIncidencia> matrices1 = g1.generarMatrices();
-            List<MatrizIncidencia> matrices2 = g2.generarMatrices();
+            List<MatrizIncidencia> matrices1 = g1.generarMatricesIncidencia();
+            List<MatrizIncidencia> matrices2 = g2.generarMatricesIncidencia();
 
             foreach(MatrizIncidencia matriz1 in matrices1)
             {
@@ -215,6 +233,40 @@ namespace ProyectoIsomorfismo
                 }
             }
             return false;
+        }
+
+
+        static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2)
+        {
+            bool pruebaSuperada = false;
+            PermutadorVertices p = new PermutadorVertices();
+            List<Vertice> vertices1 = g1.lstVertices;
+            List<List<Vertice>> permutacionesV2= p.combinar(g2.lstVertices);
+            Matriz matrizAdyacencia1 = g1.matrizAdyacencia();
+            Matriz matrizAdyacencia2 = g2.matrizAdyacencia();
+
+
+            foreach(List<Vertice> vertices2 in permutacionesV2)
+            {
+                Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1, vertices2);
+                if(matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(posibleMatriz)))){
+                    string msg = String.Format("Grafo1: {0}\nGrafo2: {1}", imprimirListaVertices(vertices1), imprimirListaVertices(vertices2));
+                    MessageBox.Show(msg);
+                    pruebaSuperada = true;
+                }
+            }
+
+            return pruebaSuperada;
+        }
+
+        static string imprimirListaVertices(List<Vertice> lista1)
+        {
+            string result = "   ";
+            foreach(Vertice v in lista1)
+            {
+                result += v.etiqueta + "\t";
+            }
+            return result;
         }
     }
 }

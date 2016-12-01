@@ -29,7 +29,7 @@ namespace ProyectoIsomorfismo
             return nuevoVertice;
         }      
         
-        public List<MatrizIncidencia> generarMatrices()
+        public List<MatrizIncidencia> generarMatricesIncidencia()
         {
             PermutadorVertices p = new PermutadorVertices();
             PermutadorAristas pAristas = new PermutadorAristas();
@@ -66,6 +66,92 @@ namespace ProyectoIsomorfismo
 
             return lstMatrices;
         }  
-        
+
+        public MatrizIncidencia generarMatrizAdyacencia()
+        {
+            MatrizIncidencia m = new MatrizIncidencia();
+            foreach(Vertice v in lstVertices)
+            {
+                List<int> lista = new List<int>();
+                foreach(Vertice v1 in lstVertices)
+                {
+                    if( v.contains(v1.etiqueta)){
+                        lista.Add(1);
+                    }
+                    else
+                    {
+                        lista.Add(0);
+                    }
+                }
+                m.agregarFila(lista);
+            }
+            return m;
+        }
+
+        public MatrizIncidencia generarMatricesAdyacencia(MatrizIncidencia matrizCmp)
+        {
+            PermutadorVertices p = new PermutadorVertices();
+            List<List<Vertice>> permutacionesVertices = p.combinar(lstVertices);
+
+            foreach (List<Vertice> list in permutacionesVertices)
+            {
+                foreach (List<Vertice> list2 in permutacionesVertices)
+                {
+                    MatrizIncidencia matriz = new MatrizIncidencia();
+
+                    foreach (Vertice v in list)
+                    {
+                        List<int> fila = new List<int>();
+                        foreach(Vertice v1 in list2)
+                        {
+                            if (v.contains(v1.etiqueta))
+                            {
+                                fila.Add(1);
+                            }
+                            else
+                            {
+                                fila.Add(0);
+                            }
+                        }
+                        matriz.agregarFila(fila);
+                    }
+                    if (matriz.Equivalent(matrizCmp))
+                    {
+                        return matriz;
+                    }
+                }
+            }
+            return null;
+
+
+        }
+
+        public Matriz matrizAdyacencia()
+        {
+            Matriz m = new Matriz();
+
+            foreach (Vertice v in lstVertices)
+            {                
+                List<int> lista = new List<int>();
+                foreach (Vertice v1 in lstVertices)
+                {
+                    lista.Add(0);
+                }
+                m.matriz.Add(lista);
+            }
+            for(int i = 0; i < lstVertices.Count; i++)
+            {
+                for(int j = 0; j < lstVertices.Count; j++)
+                {
+                    if (verticePorEtiqueta(i.ToString()).contains(j.ToString()))
+                    {
+                        m.matriz[i][j] = 1;
+                    }
+                }
+            }
+            return m;
+
+        }
     }
+        
 }
