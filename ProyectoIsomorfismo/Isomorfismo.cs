@@ -7,34 +7,46 @@ using System.Windows.Forms;
 using System.Diagnostics;
 namespace ProyectoIsomorfismo
 {
+    /// <summary>
+    /// Estructura que permite guardar dos listados de vértices que se relacionan.
+    /// </summary>
     struct funcion
     {
         public List<Vertice> V1;
         public List<Vertice> V2;
     }
+
+    /// <summary>
+    /// Se encarga de realizar las validaciones para determinar si existe una re-
+    /// lación de isomorfismo entre dos grafos.
+    /// </summary>
     class Isomorfismo
     {        
-        struct relacion
+        /// <summary>
+        /// Función que realiza las llamadas a las funciones que realizan las va-
+        /// lidaciones que verifican la coincidencia en cantidad de aristas, can-
+        /// tidad de vértices, si existe al menos una combinación para que coin-
+        /// cidan los grados de los vértices en ambos grafos y en caso de que 
+        /// exista una función, generar todas las funciones de isomorfismo en los 
+        /// grafos.
+        /// </summary>
+        /// <param name="g1"> Primer grafo </param>
+        /// <param name="g2"> Segundo grafo</param>
+        /// <param name="barraProgreso"> Barra que muestra el progreso en la bús-
+        /// queda de una función de isomorfismo</param>
+        /// <param name="cbFunciones"> comboBox en el que se guardan las funciones de
+        /// isomorfismo encontradas (en caso de existir).
+        /// encontradas</param>
+        /// <param name="listaFunciones"> Lista en la que se guardarán las funciones
+        /// de isomorfismo encontradas por la función. </param>
+        /// <returns></returns>
+        public static bool comprobarIsomorfismo(Grafo g1, Grafo g2, 
+            ProgressBar barraProgreso, ComboBox cbFunciones,
+            ref List<funcion> listaFunciones)
         {
-            public Vertice v1;
-            public Vertice v2;
-        }
-
-        static int posicionEnLista(List<relacion> lista, Vertice v1)
-        {
-            for(int i = 0; i < lista.Count; i++)
-            {
-                if(lista[i].v1.etiqueta == v1.etiqueta)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        public static bool comprobarIsomorfismo(Grafo g1, Grafo g2, ProgressBar barraProgreso, ComboBox cbFunciones, ref List<funcion> listaFunciones)
-        {
-            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) && encuentraFuncionAdyacencia(g1, g2, barraProgreso, cbFunciones, ref listaFunciones))){
+            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) &
+                mismosGradosVertices(g1, g2) && encuentraFuncionAdyacencia(g1, g2, 
+                barraProgreso, cbFunciones, ref listaFunciones))){
                 barraProgreso.Maximum = 1;
                 barraProgreso.Value++;
                 return false;
@@ -42,6 +54,13 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
+        /// <summary>
+        /// Verifica si la cantidad de vertices en g1 y g2 coincide
+        /// </summary>
+        /// <param name="g1"> Primer grafo</param>
+        /// <param name="g2"> Segundo grafo</param>
+        /// <returns> Verdadero si hay coincidencia entre la cantidad de vértices del
+        /// primer grafo y del segundo</returns>
         static bool mismaCantidadVertices(Grafo g1, Grafo g2)
         {
             bool pruebaSuperada = g1.cantidadVertices == g2.cantidadVertices;
@@ -53,6 +72,13 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
+        /// <summary>
+        /// Verifica si la cantidad de aristas en g1 y g2 coincide
+        /// </summary>
+        /// <param name="g1"> Primer grafo </param>
+        /// <param name="g2"> Segundo grafo</param>
+        /// <returns> Verdadero si existe coincidencia entre la cantidad de aristas del
+        /// primer grafo y del segundo</returns>
         static bool mismaCantidadAristas(Grafo g1, Grafo g2)
         {
             bool pruebaSuperada = g1.cantidadAristas == g2.cantidadAristas;
@@ -64,95 +90,43 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
+        /// <summary>
+        /// Verifica si existe al menos una manera de emparejar los vértices para que
+        /// los grados de los vértices del grafo g1 coincidan con los del grafo g2
+        /// </summary>
+        /// <param name="g1"> Primer grafo </param>
+        /// <param name="g2"> Segundo grafo</param>
+        /// <returns> Verdadero si existe coincidencia entre los grados de los vertices
+        /// del primer grafo y los del segundo </returns>
         static bool mismosGradosVertices(Grafo g1, Grafo g2)
         {
             List<int> grados1 = new List<int>();
             List<int> grados2 = new List<int>();
 
+            // Llena dos listas con los grados de cada vértice en el primero y segundo
+            // grafo
             foreach (Vertice v in g1.lstVertices)
                 grados1.Add(v.grado);
             foreach (Vertice v in g2.lstVertices)
                 grados2.Add(v.grado);
 
+            // Por cada elemento en la lista grados2, busca una coincidencia en la lista
+            // de grados de los vértices de g2; de encontralos elimina el elemento de la
+            // lista de grados de vértices del grafo g1
             foreach (int i in grados2)
             {
                 if (grados1.Contains(i))
                     grados1.Remove(i);
             }
-
+            // En caso de no coincidan, la lista de grados de vértices del primer grafo
+            // no quedará vacía
             if (grados1.Count != 0)
             {
                 MessageBox.Show("Los grados de los vértices de los grafos no coinciden.");
                 return false;
             }
             return true;
-        }
-
-        static List<relacion> encontrarFuncion(Grafo g1, Grafo g2)
-        {
-            List<relacion> listaFuncion = new List<relacion>();
-            List<Vertice> v1 = g1.lstVertices;
-            List<Vertice> v2 = g2.lstVertices;
-            List<List<Vertice>> permutacionesV2 = generarCombinaciones(v2, g2);
-            foreach(List<Vertice> list in permutacionesV2)
-            {
-                for (int i = 0; i < v1.Count; i++)
-                {
-                    if (funcionRecursiva(v1[i], list[i], g1, g2, listaFuncion))
-                    {
-                        return listaFuncion;
-                    }
-                }
-            }
-            return null;
-        }
-
-
-        static bool funcionRecursiva(Vertice v1, Vertice v2, Grafo g1, Grafo g2, List<relacion> listaFuncion)
-        {
-       
-            List<Vertice> lista1 = v1.listaVerticesPorEtiqueta(v1, g1);
-            List<List<Vertice>> permutacionesListaVertice2 = generarCombinaciones(v2.listaVerticesPorEtiqueta(v2, g2), g2);
-            for(int i = 0; i < permutacionesListaVertice2.Count; i++)
-            {
-                if(gradosListasCoinciden(lista1, permutacionesListaVertice2[i]))
-                {
-                    for (int j = 0; j < lista1.Count; j++)
-                    {
-                        relacion cmp = new relacion();
-                        cmp.v1 = v1;
-                        cmp.v2 = v2;
-                        if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta == v2.etiqueta)
-                        {
-                           
-                            return true;
-                            
-                        }
-                        if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta != v2.etiqueta)
-                        {
-                            listaFuncion.Remove(listaFuncion.Last<relacion>());
-                            return false;
-                        }
-                        else
-                        {
-                            listaFuncion.Add(cmp);
-                            if (funcionRecursiva(lista1[j], permutacionesListaVertice2[i][j], g1, g2, listaFuncion)){
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }        
-       
-        static List<List<Vertice>> generarCombinaciones(List<Vertice> listaPermutar, Grafo g)
-        {
-            PermutadorVertices permuta = new PermutadorVertices();
-            List<List<Vertice>> lista = permuta.combinar(listaPermutar);
-            return lista;
-        }
+        }    
 
         /// <summary>
         /// Verifica que dos listas tengan los mismos grados en el mismo orden
@@ -160,7 +134,8 @@ namespace ProyectoIsomorfismo
         /// <param name="lista1"> Primera lista</param>
         /// <param name="lista2"> Segunda lista</param>
         /// <returns> Verdadero si coinciden los grados en el mismo orden en la listas. </returns>
-        private static bool gradosListasCoinciden(List<Vertice> lista1, List<Vertice> lista2)
+        private static bool gradosListasCoinciden(List<Vertice> lista1, 
+            List<Vertice> lista2)
         {
             if (lista1.Count != lista2.Count)
                 return false;
@@ -174,98 +149,81 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
+        /// <summary>
+        /// Comprueba que lo grados de dos vértices coincidan
+        /// </summary>
+        /// <param name="v1"> Primer vértice </param>
+        /// <param name="v2"> Segundo vértice</param>
+        /// <returns></returns>
         private static bool gradoCoincide(Vertice v1, Vertice v2)
         {
             return v1.grado == v2.grado;
-        }
+        }       
 
-        public static bool verticeExiste(string s, List<Vertice> listaVertices)
-        {
-            foreach (Vertice v in listaVertices)
-            {
-                if (v.etiqueta == s)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        
-
-
-        static bool coincidenciaMatrices(MatrizIncidencia matriz1, MatrizIncidencia matriz2)
-        {
-            for(int i = 0; i < matriz1.matriz.Count; i++)
-            {
-                for(int j = 0; j < matriz1.matriz[0].Count; j++)
-                {
-                    if (matriz1.matriz[j][i] != matriz2.matriz[j][i])
-                        return false;
-                }
-            }
-            return true;
-        }
-
-        static bool funcionIsomorfismoMatrizAdyacencia(Grafo g1, Grafo g2)
-        {
-            MatrizIncidencia listaMatrices1 = g1.generarMatricesAdyacencia(g2.generarMatrizAdyacencia());
-
-            if(listaMatrices1!= null)
-            {
-                MessageBox.Show("FUCK YEAH");
-                return true;
-            }
-            /*foreach(MatrizIncidencia matriz in listaMatrices1)
-            {
-                if (matriz.Equivalent(g2.generarMatrizAdyacencia()))
-                {
-                    return true;
-                }
-            }*/
-            return false;
-        }
-        static bool funcionIsomorfisoXMatriz(Grafo g1, Grafo g2)
-        {
-            List<MatrizIncidencia> matrices1 = g1.generarMatricesIncidencia();
-            List<MatrizIncidencia> matrices2 = g2.generarMatricesIncidencia();
-
-            foreach(MatrizIncidencia matriz1 in matrices1)
-            {
-                foreach(MatrizIncidencia matriz2 in matrices2)
-                {
-                    if (matriz1.Equivalent(matriz2))
-                        return true;
-                }
-            }
-            return false;
-        }
-
-
+       /// <summary>
+       /// Función encargada de buscar y, en caso de encontrar, generar tantas funciones
+       /// de isomorfismo como sean posibles.
+       /// </summary>
+       /// <param name="g1"> Primer grafo </param>
+       /// <param name="g2"> Segundo grafo </param>
+       /// <param name="barraProgreso"> Barra que indicará el progreso de la búsqueda de
+       /// las funciones de isomorfismo </param>
+       /// <param name="cbFunciones"> comboBox en el que se almacenarán los nombres de
+       /// las funciones a medida que vayan siendo encontradas </param>
+       /// <param name="listaFunciones"> Lista en la que se almacenará la información de
+       /// cada una de las funciones encontradas</param>
+       /// <returns></returns>
         static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2, ProgressBar barraProgreso, ComboBox cbFunciones, ref List<funcion> listaFunciones)
         {
+            // Variable booleana que indica si se encontró o no al menos una función de
+            // isomorfismo para los dos grafos dados
+            bool pruebaSuperada = false;
+
+            // Instancia e inicia un stopWatch para verificar el tiempo de que el algo-
+            // ritmo tarda en encontrar las funciones
             Stopwatch sw = new Stopwatch();
             sw.Start();
+
+            // Lista que almacena las funciones generadas.
             List<funcion> lstFuncionesEncontradas = new List<funcion>();
-            bool pruebaSuperada = false;
+
+            // Instancia que servirá para obtener todas las permutaciones de vértices en
+            // un grafo
             PermutadorVertices p = new PermutadorVertices();
+
+            // Lista que almacena los vértices del primer grafo
             List<Vertice> vertices1 = g1.lstVertices;
+
+            // Lista de que almacena todas las posibles permutaciones de vértices del
+            // primer grafo
             List<List<Vertice>> permutacionesV2= p.combinar(g2.lstVertices);
+
+            // Se crean las matrices de adyacencia de los dos grafos
             Matriz matrizAdyacencia1 = g1.matrizAdyacencia();
             Matriz matrizAdyacencia2 = g2.matrizAdyacencia();
 
             barraProgreso.Maximum = permutacionesV2.Count;
             int numeroFunciones = 0;
 
+            // Realiza el proceso por cada una de las permutaciones realizadas para el
+            // listado de vértices del segundo grafo
             foreach (List<Vertice> vertices2 in permutacionesV2)
-            {
-                
+            {                
                 barraProgreso.Value++;
-                Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1, vertices2);
-                if(matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(posibleMatriz)))){
-                    funcion funcionNueva = new funcion();
+                // Se genera una posible matriz con los dos listados de vértices
+                Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1, 
+                    vertices2);
+                // Verifica que en la permutación actual almenos coincidan los grados de
+                // los vértices, de lo contrario es inútil continuar buscando la matriz.
+                if(gradosListasCoinciden(vertices1, vertices2) &&
+                    // Es verdadero si para el producto de
+                    // (posibleMatriz)*(matrizAdyacencia2)*(matryzAdyacencia2Transpuesta)
+                    // se genera la matriz de adyacencia del primer grafo.
+                    matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(posibleMatriz)))){
+                    funcion funcionNueva = new funcion(); // Se crea una nueva función
                     funcionNueva.V1 = vertices1;
                     funcionNueva.V2 = vertices2;
+                    // La función creada se añade a la lista de funciones
                     lstFuncionesEncontradas.Add(funcionNueva);
                     numeroFunciones++;
                     cbFunciones.Items.Add(string.Format("Funcion #{0}", numeroFunciones));
@@ -274,6 +232,7 @@ namespace ProyectoIsomorfismo
             }
             listaFunciones = lstFuncionesEncontradas;
             sw.Stop();
+            // Muestra información del proceso al usuario
             string msg = String.Format("El programa tardó {0}ms en encontrar las funciones", sw.ElapsedMilliseconds);
             MessageBox.Show(msg, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return pruebaSuperada;

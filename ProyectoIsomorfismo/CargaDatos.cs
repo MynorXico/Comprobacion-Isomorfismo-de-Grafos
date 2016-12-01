@@ -98,7 +98,6 @@ namespace ProyectoIsomorfismo
             g = g1;
             return true;
         }
-
         private bool verticeExiste(string s)
         {
             foreach(Vertice v in listaVertices)
