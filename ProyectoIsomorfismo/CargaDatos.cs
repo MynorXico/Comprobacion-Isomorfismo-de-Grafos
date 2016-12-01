@@ -24,8 +24,15 @@ namespace ProyectoIsomorfismo
                 return false;
             }
             Grafo g1;
-            
-            string[] lineas = File.ReadAllLines(ofd.FileName);
+            string[] lineas;
+            try
+            {
+                lineas = File.ReadAllLines(ofd.FileName);
+            }
+            catch(ArgumentException e)
+            {
+                return false;
+            }
             int numeroVertices = 0;
             try {
                 numeroVertices = Convert.ToInt32(lineas[0].Split(' ')[0]);
@@ -91,7 +98,6 @@ namespace ProyectoIsomorfismo
             g = g1;
             return true;
         }
-
         private bool verticeExiste(string s)
         {
             foreach(Vertice v in listaVertices)

@@ -116,9 +116,9 @@
             this.colV1,
             this.volV2});
             this.dgvMostrarFuncion.Enabled = false;
-            this.dgvMostrarFuncion.Location = new System.Drawing.Point(17, 178);
+            this.dgvMostrarFuncion.Location = new System.Drawing.Point(14, 178);
             this.dgvMostrarFuncion.Name = "dgvMostrarFuncion";
-            this.dgvMostrarFuncion.Size = new System.Drawing.Size(166, 150);
+            this.dgvMostrarFuncion.Size = new System.Drawing.Size(181, 150);
             this.dgvMostrarFuncion.TabIndex = 5;
             // 
             // colV1
@@ -182,7 +182,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Isomorfismo";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).EndInit();
             this.menuStrip1.ResumeLayout(false);
