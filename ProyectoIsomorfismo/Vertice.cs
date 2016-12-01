@@ -37,5 +37,17 @@ namespace ProyectoIsomorfismo
             }
             return resultado;
         }
+
+        public bool contains(string s)
+        {
+            foreach(Vertice v in verticesConectados)
+            {
+                if(v.etiqueta == s)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

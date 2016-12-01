@@ -30,7 +30,7 @@ namespace ProyectoIsomorfismo
 
         public static bool comprobarIsomorfismo(Grafo g1, Grafo g2)
         {
-            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & encontrarFuncion(g1, g2))){
+            if (!(mismaCantidadAristas(g1, g2) & mismaCantidadVertices(g1, g2) & mismosGradosVertices(g1, g2) & encuentraFuncionAdyacencia(g1, g2))){
                 return false;
             }
             return true;
@@ -82,7 +82,7 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
-        static bool encontrarFuncion(Grafo g1, Grafo g2)
+        static List<relacion> encontrarFuncion(Grafo g1, Grafo g2)
         {
             List<relacion> listaFuncion = new List<relacion>();
             List<Vertice> v1 = g1.lstVertices;
@@ -94,11 +94,11 @@ namespace ProyectoIsomorfismo
                 {
                     if (funcionRecursiva(v1[i], list[i], g1, g2, listaFuncion))
                     {
-                        return true;
+                        return listaFuncion;
                     }
                 }
             }
-            return false;
+            return null;
         }
 
 
@@ -118,10 +118,11 @@ namespace ProyectoIsomorfismo
                         cmp.v2 = v2;
                         if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta == v2.etiqueta)
                         {
-                            listaFuncion.Add(cmp);
+                           
                             return true;
+                            
                         }
-                        else if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta != v2.etiqueta)
+                        if (posicionEnLista(listaFuncion, cmp.v1) != -1 && listaFuncion[posicionEnLista(listaFuncion, cmp.v1)].v2.etiqueta != v2.etiqueta)
                         {
                             listaFuncion.Remove(listaFuncion.Last<relacion>());
                             return false;
@@ -138,13 +139,11 @@ namespace ProyectoIsomorfismo
             }
 
             return false;
-        }
-
-        
+        }        
        
         static List<List<Vertice>> generarCombinaciones(List<Vertice> listaPermutar, Grafo g)
         {
-            Permutador permuta = new Permutador();
+            PermutadorVertices permuta = new PermutadorVertices();
             List<List<Vertice>> lista = permuta.combinar(listaPermutar);
             return lista;
         }
@@ -169,7 +168,6 @@ namespace ProyectoIsomorfismo
             return true;
         }
 
-
         private static bool gradoCoincide(Vertice v1, Vertice v2)
         {
             return v1.grado == v2.grado;
@@ -185,6 +183,90 @@ namespace ProyectoIsomorfismo
                 }
             }
             return false;
+        }
+
+        
+
+
+        static bool coincidenciaMatrices(MatrizIncidencia matriz1, MatrizIncidencia matriz2)
+        {
+            for(int i = 0; i < matriz1.matriz.Count; i++)
+            {
+                for(int j = 0; j < matriz1.matriz[0].Count; j++)
+                {
+                    if (matriz1.matriz[j][i] != matriz2.matriz[j][i])
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        static bool funcionIsomorfismoMatrizAdyacencia(Grafo g1, Grafo g2)
+        {
+            MatrizIncidencia listaMatrices1 = g1.generarMatricesAdyacencia(g2.generarMatrizAdyacencia());
+
+            if(listaMatrices1!= null)
+            {
+                MessageBox.Show("FUCK YEAH");
+                return true;
+            }
+            /*foreach(MatrizIncidencia matriz in listaMatrices1)
+            {
+                if (matriz.Equivalent(g2.generarMatrizAdyacencia()))
+                {
+                    return true;
+                }
+            }*/
+            return false;
+        }
+        static bool funcionIsomorfisoXMatriz(Grafo g1, Grafo g2)
+        {
+            List<MatrizIncidencia> matrices1 = g1.generarMatricesIncidencia();
+            List<MatrizIncidencia> matrices2 = g2.generarMatricesIncidencia();
+
+            foreach(MatrizIncidencia matriz1 in matrices1)
+            {
+                foreach(MatrizIncidencia matriz2 in matrices2)
+                {
+                    if (matriz1.Equivalent(matriz2))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+
+        static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2)
+        {
+            bool pruebaSuperada = false;
+            PermutadorVertices p = new PermutadorVertices();
+            List<Vertice> vertices1 = g1.lstVertices;
+            List<List<Vertice>> permutacionesV2= p.combinar(g2.lstVertices);
+            Matriz matrizAdyacencia1 = g1.matrizAdyacencia();
+            Matriz matrizAdyacencia2 = g2.matrizAdyacencia();
+
+
+            foreach(List<Vertice> vertices2 in permutacionesV2)
+            {
+                Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1, vertices2);
+                if(matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(posibleMatriz)))){
+                    string msg = String.Format("Grafo1: {0}\nGrafo2: {1}", imprimirListaVertices(vertices1), imprimirListaVertices(vertices2));
+                    MessageBox.Show(msg);
+                    pruebaSuperada = true;
+                }
+            }
+
+            return pruebaSuperada;
+        }
+
+        static string imprimirListaVertices(List<Vertice> lista1)
+        {
+            string result = "   ";
+            foreach(Vertice v in lista1)
+            {
+                result += v.etiqueta + "\t";
+            }
+            return result;
         }
     }
 }

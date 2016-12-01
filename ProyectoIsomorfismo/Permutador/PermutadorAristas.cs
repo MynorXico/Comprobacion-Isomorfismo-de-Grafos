@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 
 namespace ProyectoIsomorfismo
 {
-    class PermutadorVertices
+    public class PermutadorAristas
     {
 
-        public List<List<Vertice>> combinar(List<Vertice> listaPermutada )
+
+        public List<List<Arista>> combinar(List<Arista> listaPermutada)
         {
-            PermutadorUtilities.getInstancia().reiniciar();
-            PermutadorUtilities.getInstancia().listaVertices = listaPermutada;
-            List<List<Vertice>> lista = new List<List<Vertice>>();
+            PermutadorUtilitiesAristas.getInstancia().reiniciar();
+            PermutadorUtilitiesAristas.getInstancia().listaAristas = listaPermutada;
+            List<List<Arista>> lista = new List<List<Arista>>();
             string cadenaPermutada = "";
 
-            for (int i = 0;i < listaPermutada.Count;i++)
+            for (int i = 0; i < listaPermutada.Count; i++)
             {
                 cadenaPermutada = cadenaPermutada + (char)listaPermutada[i].ID;
 
             }
 
             Combinacion(cadenaPermutada);
-            lista = PermutadorUtilities.getInstancia().obtenerListasPermutadas();
+            lista = PermutadorUtilitiesAristas.getInstancia().obtenerListasPermutadas();
             return lista;
 
         }
@@ -39,10 +40,10 @@ namespace ProyectoIsomorfismo
 
             if (cadena.Length == combinacion.Length)
             {
-                PermutadorUtilities.getInstancia().agregarListaProb(combinacion);
-                PermutadorUtilities.getInstancia().clearNumeros();
+                PermutadorUtilitiesAristas.getInstancia().agregarListaProb(combinacion);
+                PermutadorUtilitiesAristas.getInstancia().clearNumeros();
             }
-            
+
             for (int i = 0; i < iguales.Length; i++)
             {
                 if (!iguales[i])

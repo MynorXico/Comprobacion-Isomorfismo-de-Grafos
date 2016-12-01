@@ -11,9 +11,10 @@ namespace ProyectoIsomorfismo
     class CargaDatos
     {
         static List<Vertice> listaVertices;
-
+        static List<Arista> listaAristas;
         public bool cargarGrafo(ref Grafo g) {
             listaVertices = new List<Vertice>();
+            listaAristas = new List<Arista>();
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Archivo de texto | *.txt";
             ofd.ShowDialog();
@@ -29,6 +30,8 @@ namespace ProyectoIsomorfismo
             int numeroAristas = 0;
             for(int i = 1; i < lineas.Length; i++)
             {
+                Arista a = new Arista(lineas[i].Split(','), numeroAristas+65);
+                listaAristas.Add(a);
                 numeroAristas++;
                 for(int j = 0; j < 2; j++)
                 {
@@ -63,7 +66,7 @@ namespace ProyectoIsomorfismo
                 v.asignarID();
             }
 
-            g1 = new Grafo(numeroVertices, numeroAristas, listaVertices);
+            g1 = new Grafo(numeroVertices, numeroAristas, listaVertices, listaAristas);
             g = g1;
             return true;
         }
