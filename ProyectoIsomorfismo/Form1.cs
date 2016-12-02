@@ -177,8 +177,7 @@ namespace ProyectoIsomorfismo
         /// </summary>
         /// <param name="cantidadVerticesG1"> Vértices de primer grafo </param>
         /// <param name="cantidadVerticesG2"> Vértices de segundo grafo </param>
-        private void DeterminarCoordenadas(int cantidadVerticesG1, 
-            int cantidadVerticesG2)
+        private void DeterminarCoordenadas(int cantidadVerticesG1,  int cantidadVerticesG2)
         {
             //Arreglo de coordenadas tanto del Grafo 1 como del Grafo 2
             coordenadasVerticesG1 = new Coordenadas[cantidadVerticesG1];
@@ -193,6 +192,8 @@ namespace ProyectoIsomorfismo
             int centroX = DeterminarCentroX(1);
             int centroY = DeterminarCentroY(1);
 
+            /*Recorre la lista de vertices para asignar las coordenadas correspondientes
+            a cada uno */
             for (int i = 0; i < cantidadVerticesG1; i++)
             {
                 almacenarX = CoordenadaX(radio, anguloActual, centroX);
@@ -210,6 +211,8 @@ namespace ProyectoIsomorfismo
             centroX = DeterminarCentroX(2);
             centroY = DeterminarCentroY(2);
 
+            /*Recorre la lista de vertices para asignar las coordenadas correspondientes
+           a cada uno */
             for (int j = 0; j < cantidadVerticesG2; j++)
             {
                 almacenarX = CoordenadaX(radio, anguloActual, centroX);
@@ -223,6 +226,9 @@ namespace ProyectoIsomorfismo
 
         /// <summary>
         /// Coordenada y del vértice
+        /// Lo calcula en base al angulo y al radio, con la ley de senos,
+        /// para determinar la altura y el ancho, en nuestro caso la coordenada en Y
+        /// en base al angulo que tenga asigando.
         /// </summary>
         /// <param name="radio"> Radio de cada vértice </param>
         /// <param name="angulo"> Ángulo del vértice (360) conveniemtemente</param>
@@ -235,6 +241,7 @@ namespace ProyectoIsomorfismo
 
             switch ((int)angulo)
             {
+                //Estos 4 casos aplican cuando el angulo es recto u obtuso..
                 case 0:
                     coordenadaY = centroY;
                     break;
@@ -249,6 +256,9 @@ namespace ProyectoIsomorfismo
                     break;
 
                 default:
+
+                    /*Math.Sin(), opera con radianes por lo que se realizo la conversion del angulo en grados 
+                    a radianes utilizando la operacion Math.PI/180 */
 
                     //Primer cuadrante
                     if (angulo < 90 && angulo > 0)
@@ -288,6 +298,9 @@ namespace ProyectoIsomorfismo
         }
         /// <summary>
         /// Coordenada x del vértice 
+        /// Lo calcula en base al angulo y al radio, con la ley de senos,
+        /// para determinar la altura y el ancho, en nuestro caso la coordenada en X
+        /// en base al angulo que tenga asigando.
         /// </summary>
         /// <param name="radio"> Radio del vértice </param>
         /// <param name="angulo"> Ángulo del vértice (Convenientemente 360)</param>
@@ -300,6 +313,7 @@ namespace ProyectoIsomorfismo
 
             switch ((int)angulo)
             {
+                //Estos 4 casos aplican cuando el angulo es recto u obtuso..
                 case 0:
                     coordenadaX = centroX + radio;
                     break;
@@ -315,6 +329,9 @@ namespace ProyectoIsomorfismo
 
                 default:
 
+                    /*Math.Sin(), opera con radianes por lo que se realizo la conversion del angulo en grados 
+                    a radianes utilizando la operacion Math.PI/180 */
+                    
                     //Primer cuadrante
                     if (angulo < 90 && angulo > 0)
                     {
@@ -356,28 +373,58 @@ namespace ProyectoIsomorfismo
         /// </summary>
         private void DibujarGrafos()
         {
+            /* Permiten operar sobre un pictureBox como si fuera un graficador.
+               Manipulando las coordenadas de dicho pictureBox*/
+
+            //Mapa de bits para el grafo 1 y 2
             Bitmap a;
             Bitmap b;
+
+            /*Permite acceder a funciones de dibujo para crear la figura deseada,
+              va amarrada del mapa de bits*/
             Graphics grafo1;
             Graphics grafo2;
+
+            //Pinceles para dibujar vertices
             Pen redPen = new Pen(Color.Red, 9);
             Pen greenPen = new Pen(Color.Green, 9);
-            Pen blackPen = new Pen(Color.Black, 4);
+
+            //Pinceles para dibujar aristas
+            Pen blackPen = new Pen(Color.Black, 6);
+            Pen redLinesPen = new Pen(Color.Red, 3);
+            Pen yellowLinesPen = new Pen(Color.Yellow, 3);
+            Pen blueLinesPen = new Pen(Color.Blue, 3);
+
+            //Tamaño de fuente para el nombre de las aristas
             Font arial = new Font("Arial", 9);
             char auxiliar = ' ';
 
+            //Almacena las aristas que se repitan en el grafo
+            //Obtiene el arreglo que determina cuantas aristas repetidas existen
+            int[] repeticiones = AristasRepetidas(1);
+
+            //Se inicializan los mapas de bits del tamaño de los pictureBox
             a = new Bitmap(pBG1.Width, pBG1.Height);
             b = new Bitmap(pBG2.Width, pBG2.Height);
+
+            //Se asignan los mapas de bits como si fueran imagenes a los pictureBox
             pBG1.Image = (Image)a;
             pBG2.Image = (Image)b;
+
+            /*Inicializa los graficadores e indican sobre que imagen(Mapa de bits) 
+              trabajará.*/
             grafo1 = Graphics.FromImage(a);
             grafo2 = Graphics.FromImage(b);
 
+            /* Parte del codigo que se encarga de dibujar las aristas del grafo 1 
+               y grafo 2*/
             #region Dibujar Aristas:
 
+            //Dibuja las aristas del  grafo 1
             int aux = 0;
             int to = 0;
 
+            //Recorre las lista de aristas..
             for (int z = 0; z < g1.cantidadAristas; z++)
             {
                 aux = Convert.ToInt32(g1.lstAristas[z].from);
@@ -392,13 +439,43 @@ namespace ProyectoIsomorfismo
                 }
                 else
                 {
-                    grafo1.DrawLine(blackPen, new Point(coordenadasVerticesG1[aux].X, coordenadasVerticesG1[aux].Y), new Point(coordenadasVerticesG1[to].X, coordenadasVerticesG1[to].Y));
+                    switch (repeticiones[z])
+                    {
+                        case 1:
+                            //En caso que la arista sea única en la lista.
+                            grafo1.DrawLine(blackPen, new Point(coordenadasVerticesG1[aux].X, coordenadasVerticesG1[aux].Y), new Point(coordenadasVerticesG1[to].X, coordenadasVerticesG1[to].Y));
+                            break;
+                        case 2:
+                            //Indica que se ha repetido 1 vez la arista...
+                            //Asigna un nuevo color a esa arista..
+                            //Manipula el grosor y la ubicacion de la arista...
+                            grafo1.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG1[aux].X + 4, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X + 4, coordenadasVerticesG1[to].Y + 3));
+                            break;
+                        case 3:
+                            //Indica que se ha repetido 2 veces la arista...
+                            //Asigna un nuevo color a esa arista..
+                            //Manipula el grosor y la ubicacion de la arista..
+                            grafo1.DrawLine(blueLinesPen, new Point(coordenadasVerticesG1[aux].X - 4, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X - 4, coordenadasVerticesG1[to].Y + 3));
+                            break;
+                        case 4:
+                            //Indica que se ha repetido 3 veces la arista...
+                            //Asigna un nuevo color a esa arista..
+                            //Manipula el grosor y la ubicacion de la arista..
+                            grafo1.DrawLine(redLinesPen, new Point(coordenadasVerticesG1[aux].X + 8, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X + 8, coordenadasVerticesG1[to].Y + 3));
+                            break;
+                    }
                 }
             }
 
+
+            //Dibuja las aristas del grafo 2
             aux = 0;
             to = 0;
 
+            //Obtiene el arreglo que determina cuantas aristas repetidas existen
+            repeticiones = AristasRepetidas(2);
+
+            //Recorre las lista de aristas..
             for (int w = 0; w < g2.cantidadAristas; w++)
             {
                 aux = Convert.ToInt32(g2.lstAristas[w].from);
@@ -414,18 +491,52 @@ namespace ProyectoIsomorfismo
                 }
                 else
                 {
-                    grafo2.DrawLine(blackPen, new Point(coordenadasVerticesG2[aux].X, coordenadasVerticesG2[aux].Y), new Point(coordenadasVerticesG2[to].X, coordenadasVerticesG2[to].Y));
+                    /* Solo puede analizar hasta 4 aristas repetidas, en caso de existir mas, no se podra ver visualmente
+                      en el graficador.*/
+                    switch (repeticiones[w])
+                    {
+                        case 1:
+                            //En caso que la arista sea única en la lista.
+                            grafo2.DrawLine(blackPen, new Point(coordenadasVerticesG2[aux].X, coordenadasVerticesG2[aux].Y), new Point(coordenadasVerticesG2[to].X, coordenadasVerticesG2[to].Y));
+                            break;
+                        case 2:
+                            //Indica que se ha repetido 1 vez la arista...
+                            //Asigna un nuevo color a esa arista..
+                            //Manipula el grosor y la ubicacion de la arista...
+                            grafo2.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG2[aux].X + 4, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X + 4, coordenadasVerticesG2[to].Y + 3));
+                            break;
+                        case 3:
+
+                            //Indica que se ha repetido 2 veces la arista...
+                            //Asigna un nuevo color a esa arista..
+                            //Manipula el grosor y la ubicacion de la arista...
+                            grafo2.DrawLine(blueLinesPen, new Point(coordenadasVerticesG2[aux].X - 4, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X - 4, coordenadasVerticesG2[to].Y + 3));
+                            break;
+                        case 4:
+                            //Indica que se ha repetido 3 veces la arista...
+                            //Asigna un nuevo color a esa arista..
+                            //Manipula el grosor y la ubicacion de la arista...
+                            grafo2.DrawLine(redLinesPen, new Point(coordenadasVerticesG2[aux].X + 8, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X + 8, coordenadasVerticesG2[to].Y + 3));
+                            break;
+                    }
                 }
             }
 
             #endregion
 
+
+            /* Parte del codigo que se encarga de dibujar los vertices del grafo 1 
+               y grafo 2*/
             #region Dibujar Vertices:
             //Dibuja los vertices del grafo 1
             for (int i = 0; i < coordenadasVerticesG1.Length; i++)
             {  
+                /* Genera un rectangulo sobre el cual se dibujará la elipse rellena que 
+                  representará un vertice del grafo.*/
                 Rectangle r = new Rectangle(coordenadasVerticesG1[i].X, coordenadasVerticesG1[i].Y, 8, 8);
                 grafo1.DrawEllipse(redPen, r);
+
+                /* Asigna un identificador a cada vertice del grafo*/
                 auxiliar = Convert.ToChar(i + 65);
                 grafo1.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG1[i].X + 12, coordenadasVerticesG1[i].Y -6));
             }
@@ -433,28 +544,120 @@ namespace ProyectoIsomorfismo
             //Dibuja los vertices del grafo 2
             for(int j = 0; j < coordenadasVerticesG2.Length; j++)
             {
+                /* Genera un rectangulo sobre el cual se dibujará la elipse rellena que 
+                  representará un vertice del grafo.*/
                 Rectangle r = new Rectangle(coordenadasVerticesG2[j].X, coordenadasVerticesG2[j].Y, 8, 8);
                 grafo2.DrawEllipse(greenPen, r);
+
+                /* Asigna un identificador a cada vertice del grafo*/
                 auxiliar = Convert.ToChar(j + 97);
                 grafo2.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 12, coordenadasVerticesG2[j].Y -6));
             }
             #endregion
         }
+
         /// <summary>
-        /// Determina el radio en base al número de grafo
+        /// Crea un arreglo de enteros que indica cuantas veces se ha repetido
+        /// una arista en la lista.
         /// </summary>
-        /// <param name="numeroGrafo"></param>
-        /// <returns></returns>
+        /// <param name="grafo"> Indica el numero del grafo sobre el cual va a operar.</param>
+        /// <returns> Retorna el arreglo de enteros lleno con 
+        /// datos analizados. </returns>
+        private int[] AristasRepetidas(int grafo)
+        {
+            //Crea el arreglo del mismo tamaño que la lista de aristas..
+            int[] repeticiones = new int[g1.cantidadAristas];
+            int count = 1;
+
+            //Llena el arreglo con 1 para indicar que existe una vez esa arista en la lista..
+            for (int x = 0; x < repeticiones.Length; x++)
+            {
+                repeticiones[x] = count;
+            }
+
+            //Elige sobre cual grafo va operar..
+            //En nuestro caso tenemos solo 2 grafos..
+            switch (grafo)
+            {
+                case 1:
+                    //Grafo 1
+
+                    //Recorre la lista de aristas buscando aristas repetidas...
+                    for (int j = 0; j < g1.cantidadAristas; j++)
+                    {
+                        //Ayuda a indicar si existe una o mas aristas iguales...
+                        count = 2;
+
+                        for (int i = j + 1; i < g1.cantidadAristas; i++)
+                        {
+                            if (g1.lstAristas[j].from == g1.lstAristas[i].from || g1.lstAristas[j].from == g1.lstAristas[i].to)
+                            {
+                                if (g1.lstAristas[j].to == g1.lstAristas[i].to || g1.lstAristas[j].to == g1.lstAristas[i].from)
+                                {
+                                    //Si encuentra una arista repetida le asigna el valor que tenga count...
+                                    //Por ejemplo si fuera la tercera arista igual, el valor de count será 3...
+                                    if (repeticiones[i] < count)
+                                    {
+                                        repeticiones[i] = count;
+                                        count++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    break;
+                case 2:
+                    //Grafo 2
+
+                    //Recorre la lista de aristas buscando aristas repetidas...
+                    for (int j = 0; j < g2.cantidadAristas; j++)
+                    {
+                        //Ayuda a indicar si existe una o mas aristas iguales...
+                        count = 2;
+
+                        for (int i = j + 1; i < g2.cantidadAristas; i++)
+                        {
+                            if (g2.lstAristas[j].from == g2.lstAristas[i].from || g2.lstAristas[j].from == g2.lstAristas[i].to)
+                            {
+                                if (g2.lstAristas[j].to == g2.lstAristas[i].to || g2.lstAristas[j].to == g2.lstAristas[i].from)
+                                {
+                                    //Si encuentra una arista repetida le asigna el valor que tenga count...
+                                    //Por ejemplo si fuera la tercera arista igual, el valor de count será 3...
+                                    if (repeticiones[i] < count)
+                                    {
+                                        repeticiones[i] = count;
+                                        count++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+
+            return repeticiones;
+        }
+
+        /// <summary>
+        /// Determina el radio de un grafo determinado,
+        /// En base a la altura del pictureBox asignado.
+        /// </summary>
+        /// <param name="numeroGrafo"> Grafo sobre el cual se realizaran operaciones </param>
+        /// <returns> El radio calculado en base al grafo elegido </returns>
         private int DeterminarRadio(int numeroGrafo)
         {
             int radio = 0;
 
-            switch(numeroGrafo)
+            //En nuestro caso solamente se esta trabajando con 2 grafos..
+            switch (numeroGrafo)
             {
                 case 1:
+                    //Grafo 1
                     radio = (pBG1.Height - 40) / 2;
                     break;
                 case 2:
+                    //Grafo 2
                     radio = (pBG2.Height - 40) / 2;
                     break;
                 default:
@@ -467,20 +670,24 @@ namespace ProyectoIsomorfismo
             return radio;
         }
         /// <summary>
-        /// Determina el centro en x en base al número de grafo
+        /// Determina el centro en X de un grafo determinado
         /// </summary>
-        /// <param name="numeroGrafo"></param>
-        /// <returns></returns>
+        /// <param name="numeroGrafo"> Grafo sobre el cual se realizaran operaciones </param>
+        /// <returns> Retorna el centro en el eje X del PictureBox 
+        /// correspondiente al grafo elegido </returns>
         private int DeterminarCentroX(int numeroGrafo)
         {
             int centroX = 0;
 
+            //En nuestro caso solamente se esta trabajando con 2 grafos..
             switch (numeroGrafo)
             {
                 case 1:
+                    //Grafo 1
                     centroX = pBG1.Width / 2;
                     break;
                 case 2:
+                    //Grafo 2
                     centroX = pBG2.Width / 2;
                     break;
                 default:
@@ -493,20 +700,24 @@ namespace ProyectoIsomorfismo
             return centroX;
         }
         /// <summary>
-        /// Determina el centro en y en base al número de grafo
+        /// Determina el centro en Y de un grafo determinado
         /// </summary>
-        /// <param name="numeroGrafo"></param>
-        /// <returns></returns>
+        /// <param name="numeroGrafo"> Grafo sobre el cual se realizaran operaciones </param>
+        /// <returns> Retorna el centro en el eje Y del PictureBox 
+        /// correspondiente al grafo elegido. </returns>
         private int DeterminarCentroY(int numeroGrafo)
         {
             int centroY = 0;
 
+            //En nuestro caso solamente se esta trabajando con 2 grafos..
             switch (numeroGrafo)
             {
                 case 1:
+                    //Grafo 1
                     centroY = pBG1.Height / 2;
                     break;
                 case 2:
+                    //Grafo 2
                     centroY = pBG2.Height / 2;
                     break;
                 default:
