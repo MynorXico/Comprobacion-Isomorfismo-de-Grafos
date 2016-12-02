@@ -41,9 +41,18 @@
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarDatosDeNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
+            this.gBGrafos = new System.Windows.Forms.GroupBox();
+            this.btnVerGrafos = new System.Windows.Forms.Button();
+            this.pBG1 = new System.Windows.Forms.PictureBox();
+            this.pBG2 = new System.Windows.Forms.PictureBox();
+            this.lblGrafo1 = new System.Windows.Forms.Label();
+            this.lblGrafo2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.gBGrafos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBG1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBG2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGrafo1
@@ -81,7 +90,7 @@
             // btnComprobar
             // 
             this.btnComprobar.Enabled = false;
-            this.btnComprobar.Location = new System.Drawing.Point(35, 61);
+            this.btnComprobar.Location = new System.Drawing.Point(27, 61);
             this.btnComprobar.Name = "btnComprobar";
             this.btnComprobar.Size = new System.Drawing.Size(129, 23);
             this.btnComprobar.TabIndex = 2;
@@ -141,7 +150,7 @@
             this.testToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(207, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(801, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -150,7 +159,7 @@
             this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cargarDatosDeNuevoToolStripMenuItem});
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.testToolStripMenuItem.Text = "Test";
             // 
             // cargarDatosDeNuevoToolStripMenuItem
@@ -169,11 +178,77 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Seleccione una función:";
             // 
+            // gBGrafos
+            // 
+            this.gBGrafos.Controls.Add(this.lblGrafo2);
+            this.gBGrafos.Controls.Add(this.lblGrafo1);
+            this.gBGrafos.Controls.Add(this.pBG2);
+            this.gBGrafos.Controls.Add(this.pBG1);
+            this.gBGrafos.Controls.Add(this.btnVerGrafos);
+            this.gBGrafos.Enabled = false;
+            this.gBGrafos.Location = new System.Drawing.Point(223, 36);
+            this.gBGrafos.Name = "gBGrafos";
+            this.gBGrafos.Size = new System.Drawing.Size(566, 321);
+            this.gBGrafos.TabIndex = 8;
+            this.gBGrafos.TabStop = false;
+            this.gBGrafos.Text = "Grafos";
+            // 
+            // btnVerGrafos
+            // 
+            this.btnVerGrafos.Location = new System.Drawing.Point(21, 32);
+            this.btnVerGrafos.Name = "btnVerGrafos";
+            this.btnVerGrafos.Size = new System.Drawing.Size(77, 23);
+            this.btnVerGrafos.TabIndex = 0;
+            this.btnVerGrafos.Text = "Ver Grafos";
+            this.btnVerGrafos.UseVisualStyleBackColor = true;
+            this.btnVerGrafos.Click += new System.EventHandler(this.btnVerGrafos_Click);
+            // 
+            // pBG1
+            // 
+            this.pBG1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pBG1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pBG1.Enabled = false;
+            this.pBG1.Location = new System.Drawing.Point(21, 84);
+            this.pBG1.Name = "pBG1";
+            this.pBG1.Size = new System.Drawing.Size(250, 220);
+            this.pBG1.TabIndex = 1;
+            this.pBG1.TabStop = false;
+            // 
+            // pBG2
+            // 
+            this.pBG2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pBG2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pBG2.Enabled = false;
+            this.pBG2.Location = new System.Drawing.Point(295, 84);
+            this.pBG2.Name = "pBG2";
+            this.pBG2.Size = new System.Drawing.Size(250, 220);
+            this.pBG2.TabIndex = 2;
+            this.pBG2.TabStop = false;
+            // 
+            // lblGrafo1
+            // 
+            this.lblGrafo1.AutoSize = true;
+            this.lblGrafo1.Location = new System.Drawing.Point(121, 68);
+            this.lblGrafo1.Name = "lblGrafo1";
+            this.lblGrafo1.Size = new System.Drawing.Size(42, 13);
+            this.lblGrafo1.TabIndex = 3;
+            this.lblGrafo1.Text = "Grafo 1";
+            // 
+            // lblGrafo2
+            // 
+            this.lblGrafo2.AutoSize = true;
+            this.lblGrafo2.Location = new System.Drawing.Point(396, 66);
+            this.lblGrafo2.Name = "lblGrafo2";
+            this.lblGrafo2.Size = new System.Drawing.Size(42, 13);
+            this.lblGrafo2.TabIndex = 4;
+            this.lblGrafo2.Text = "Grafo 2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(207, 387);
+            this.ClientSize = new System.Drawing.Size(801, 374);
+            this.Controls.Add(this.gBGrafos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvMostrarFuncion);
             this.Controls.Add(this.cbFunciones);
@@ -187,6 +262,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.gBGrafos.ResumeLayout(false);
+            this.gBGrafos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBG1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBG2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,6 +286,12 @@
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cargarDatosDeNuevoToolStripMenuItem;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox gBGrafos;
+        private System.Windows.Forms.PictureBox pBG2;
+        private System.Windows.Forms.PictureBox pBG1;
+        private System.Windows.Forms.Button btnVerGrafos;
+        private System.Windows.Forms.Label lblGrafo2;
+        private System.Windows.Forms.Label lblGrafo1;
     }
 }
 

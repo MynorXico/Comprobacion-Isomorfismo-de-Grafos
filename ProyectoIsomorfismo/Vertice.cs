@@ -23,6 +23,7 @@ namespace ProyectoIsomorfismo
         {
             ID = Convert.ToInt32(etiqueta) + 65;
         }
+
         public void calcularGrado()
         {
             grado = verticesConectados.Count();

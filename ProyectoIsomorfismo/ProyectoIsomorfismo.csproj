@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Arista.cs" />
     <Compile Include="CargaDatos.cs" />
+    <Compile Include="Coordenadas.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
