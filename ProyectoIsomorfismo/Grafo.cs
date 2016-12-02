@@ -7,12 +7,33 @@ namespace ProyectoIsomorfismo
 {
     class Grafo
     {
+        // Propiedades del grafo
+        /// <summary>
+        /// Número de aristas en el grafo
+        /// </summary>
         public int cantidadAristas { get; set; }
+        /// <summary>
+        /// Número de aristas en el vértice
+        /// </summary>
         public int cantidadVertices { get; set; }
+        /// <summary>
+        /// Lista con todos los vértices del grafo
+        /// </summary>
         public List<Vertice> lstVertices { get; set; }
+        /// <summary>
+        /// Lista con todas las aristas del grafo
+        /// </summary>
         public List<Arista> lstAristas { get; set; }
 
-        public Grafo(int cantidadVertices, int cantidadAristas, List<Vertice> lstVertices, List<Arista> lstAristas)
+        /// <summary>
+        /// Constructor de la clase Grafo
+        /// </summary>
+        /// <param name="cantidadVertices"> Número de vértices que tendrá el grafo. </param>
+        /// <param name="cantidadAristas"> Número de aristas que tendrá el grafo. </param>
+        /// <param name="lstVertices"> Lista de vértices que tendrá el grafo. </param>
+        /// <param name="lstAristas"> Lista de aristas que tendrá el grafo </param>
+        public Grafo(int cantidadVertices, int cantidadAristas, List<Vertice> lstVertices
+            , List<Arista> lstAristas)
         {
             this.lstVertices = lstVertices;
             this.cantidadVertices = cantidadVertices;
@@ -20,6 +41,11 @@ namespace ProyectoIsomorfismo
             this.lstAristas = lstAristas;
         }
 
+        /// <summary>
+        /// Obtiene un vértice a partir de una etiqueta.
+        /// </summary>
+        /// <param name="etiqueta"> Etiqueta del vértice a obtener. </param>
+        /// <returns> Vértice con la etiqueta pasada por parámetro. </returns>
         public Vertice verticePorEtiqueta(string etiqueta)
         {
             Vertice nuevoVertice = new Vertice();
@@ -29,107 +55,17 @@ namespace ProyectoIsomorfismo
             return nuevoVertice;
         }      
         
-        public List<MatrizIncidencia> generarMatricesIncidencia()
-        {
-            PermutadorVertices p = new PermutadorVertices();
-            PermutadorAristas pAristas = new PermutadorAristas();
-            List<List<Vertice>> permutacionesVertices = p.combinar(lstVertices);
-            List<List<Arista>> permutacionesAristas = pAristas.combinar(lstAristas);
-
-            List<MatrizIncidencia> lstMatrices = new List<MatrizIncidencia>();
-            
-            foreach(List<Vertice> lstVertice in permutacionesVertices)
-            {
-                foreach(List<Arista> lstArista in permutacionesAristas)
-                {
-                    MatrizIncidencia m = new MatrizIncidencia();
-                    List<int> lista = new List<int>();
-
-                    foreach (Vertice v in lstVertice)
-                    {
-                        foreach (Arista a in lstArista)
-                        {
-                            if (a.to == v.etiqueta || a.from == v.etiqueta)
-                            {
-                                lista.Add(1);
-                            }
-                            else
-                            {
-                                lista.Add(0);
-                            }
-                        }
-                        m.agregarFila(lista);
-                    }
-                    lstMatrices.Add(m);
-                }
-            }            
-
-            return lstMatrices;
-        }  
-
-        public MatrizIncidencia generarMatrizAdyacencia()
-        {
-            MatrizIncidencia m = new MatrizIncidencia();
-            foreach(Vertice v in lstVertices)
-            {
-                List<int> lista = new List<int>();
-                foreach(Vertice v1 in lstVertices)
-                {
-                    if( v.contains(v1.etiqueta)){
-                        lista.Add(1);
-                    }
-                    else
-                    {
-                        lista.Add(0);
-                    }
-                }
-                m.agregarFila(lista);
-            }
-            return m;
-        }
-
-        public MatrizIncidencia generarMatricesAdyacencia(MatrizIncidencia matrizCmp)
-        {
-            PermutadorVertices p = new PermutadorVertices();
-            List<List<Vertice>> permutacionesVertices = p.combinar(lstVertices);
-
-            foreach (List<Vertice> list in permutacionesVertices)
-            {
-                foreach (List<Vertice> list2 in permutacionesVertices)
-                {
-                    MatrizIncidencia matriz = new MatrizIncidencia();
-
-                    foreach (Vertice v in list)
-                    {
-                        List<int> fila = new List<int>();
-                        foreach(Vertice v1 in list2)
-                        {
-                            if (v.contains(v1.etiqueta))
-                            {
-                                fila.Add(1);
-                            }
-                            else
-                            {
-                                fila.Add(0);
-                            }
-                        }
-                        matriz.agregarFila(fila);
-                    }
-                    if (matriz.Equivalent(matrizCmp))
-                    {
-                        return matriz;
-                    }
-                }
-            }
-            return null;
-
-
-        }
-
+        
+        /// <summary>
+        /// Genera la matriz de adyacencia del grafo.
+        /// </summary>
+        /// <returns> Matriz de adyacencia del grafo </returns>
         public Matriz matrizAdyacencia()
         {
+            // Crea una matriz
             Matriz m = new Matriz();
 
+            // Llena la matriz con ceros
             foreach (Vertice v in lstVertices)
             {                
                 List<int> lista = new List<int>();
@@ -139,6 +75,9 @@ namespace ProyectoIsomorfismo
                 }
                 m.matriz.Add(lista);
             }
+
+            // En caso de encontrar una coincidencia entre vértices, añade un uno en esa
+            // posición.
             for(int i = 0; i < lstVertices.Count; i++)
             {
                 for(int j = 0; j < lstVertices.Count; j++)
@@ -150,7 +89,6 @@ namespace ProyectoIsomorfismo
                 }
             }
             return m;
-
         }
     }
         
