@@ -123,7 +123,12 @@ namespace ProyectoIsomorfismo
                 if (sonido == null)
                 {
                     sonido = new WindowsMediaPlayer();
-                    sonido.URL = "Resources/TheFinal.mp3";
+                    byte[] b = ProyectoIsomorfismo.Properties.Resources.TheFinal;
+                    FileInfo fileInfo = new FileInfo("test.mp3");
+                    FileStream fs = fileInfo.OpenWrite();
+                    fs.Write(b, 0, b.Length);
+                    fs.Close();
+                    sonido.URL = fileInfo.Name;
                     sonido.controls.play();
                 }
             }
@@ -746,5 +751,10 @@ namespace ProyectoIsomorfismo
             return centroY;
         }
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(File.Exists("test.mp3"))
+            File.Delete("test.mp3");
+        }
     }
 }

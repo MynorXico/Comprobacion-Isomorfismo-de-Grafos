@@ -1,12 +1,7 @@
-C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe.config
-C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe
-C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.pdb
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csprojResolveAssemblyReference.cache
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Form1.resources
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Properties.Resources.resources
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csproj.GenerateResource.Cache
-C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.exe
-C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.pdb
 C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe.config
 C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.exe
 C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.pdb
@@ -28,3 +23,11 @@ C:\Users\Derek\Desktop\final countdown\ProyectoIsomorfismo\ProyectoIsomorfismo\b
 C:\Users\Derek\Desktop\final countdown\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.pdb
 C:\Users\Derek\Desktop\final countdown\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Properties.Resources.resources
 C:\Users\Derek\Desktop\final countdown\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\Resources\TheFinal.mp3
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\Interop.WMPLib.dll
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csproj.ResolveComReference.cache
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\Resources\TheFinal.mp3
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\Isomorfismo.exe.config
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\Isomorfismo.exe
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\Isomorfismo.pdb
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\Isomorfismo.exe
+C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\Isomorfismo.pdb
