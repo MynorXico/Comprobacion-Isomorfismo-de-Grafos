@@ -127,12 +127,6 @@ namespace ProyectoIsomorfismo
 
         //METODOS AGREGADOS 
 
-
-        /// <summary>
-        /// En base a la cantidad de vertices de
-        /// </summary>
-        /// <param name="cantidadVerticesG1"></param>
-        /// <param name="cantidadVerticesG2"></param>
         private void DeterminarCoordenadas(int cantidadVerticesG1, int cantidadVerticesG2)
         {
             //Arreglo de coordenadas tanto del Grafo 1 como del Grafo 2
@@ -300,23 +294,11 @@ namespace ProyectoIsomorfismo
             Bitmap b;
             Graphics grafo1;
             Graphics grafo2;
-
-            //Pinceles para dibujar vertices
             Pen redPen = new Pen(Color.Red, 9);
             Pen greenPen = new Pen(Color.Green, 9);
-
-            //Pinceles para dibujar aristas
-            Pen blackPen = new Pen(Color.Black, 6);
-            Pen redLinesPen = new Pen(Color.Red, 3);
-            Pen yellowLinesPen = new Pen(Color.Yellow, 3);
-            Pen blueLinesPen = new Pen(Color.Blue, 3);
-
-            //Tamaño de fuente para el nombre de las aristas
+            Pen blackPen = new Pen(Color.Black, 4);
             Font arial = new Font("Arial", 9);
             char auxiliar = ' ';
-
-            //Almacena las aristas que se repitan en el grafo
-            int[] repeticiones = AristasRepetidas(1);
 
             a = new Bitmap(pBG1.Width, pBG1.Height);
             b = new Bitmap(pBG2.Width, pBG2.Height);
@@ -344,28 +326,12 @@ namespace ProyectoIsomorfismo
                 }
                 else
                 {
-                    switch (repeticiones[z])
-                    {
-                        case 1:
-                            grafo1.DrawLine(blackPen, new Point(coordenadasVerticesG1[aux].X, coordenadasVerticesG1[aux].Y), new Point(coordenadasVerticesG1[to].X, coordenadasVerticesG1[to].Y));
-                            break;
-                        case 2:
-                            grafo1.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG1[aux].X + 4, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X + 4, coordenadasVerticesG1[to].Y + 3));
-                            break;
-                        case 3:
-                            grafo1.DrawLine(blueLinesPen, new Point(coordenadasVerticesG1[aux].X - 4, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X - 4, coordenadasVerticesG1[to].Y + 3));
-                            break;
-                        case 4:
-                            grafo1.DrawLine(redLinesPen, new Point(coordenadasVerticesG1[aux].X + 8, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X + 8, coordenadasVerticesG1[to].Y + 3));
-                            break;
-                    }
-                    
+                    grafo1.DrawLine(blackPen, new Point(coordenadasVerticesG1[aux].X, coordenadasVerticesG1[aux].Y), new Point(coordenadasVerticesG1[to].X, coordenadasVerticesG1[to].Y));
                 }
             }
 
             aux = 0;
             to = 0;
-            repeticiones = AristasRepetidas(2);
 
             for (int w = 0; w < g2.cantidadAristas; w++)
             {
@@ -382,21 +348,7 @@ namespace ProyectoIsomorfismo
                 }
                 else
                 {
-                    switch(repeticiones[w])
-                    {
-                        case 1:
-                            grafo2.DrawLine(blackPen, new Point(coordenadasVerticesG2[aux].X, coordenadasVerticesG2[aux].Y), new Point(coordenadasVerticesG2[to].X, coordenadasVerticesG2[to].Y));
-                            break;
-                        case 2:
-                            grafo2.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG2[aux].X + 4 , coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X + 4, coordenadasVerticesG2[to].Y + 3));
-                            break;
-                        case 3:
-                            grafo2.DrawLine(blueLinesPen, new Point(coordenadasVerticesG2[aux].X - 4, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X - 4, coordenadasVerticesG2[to].Y + 3));
-                            break;
-                        case 4:
-                            grafo2.DrawLine(redLinesPen, new Point(coordenadasVerticesG2[aux].X + 8, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X + 8, coordenadasVerticesG2[to].Y + 3));
-                            break;
-                    }          
+                    grafo2.DrawLine(blackPen, new Point(coordenadasVerticesG2[aux].X, coordenadasVerticesG2[aux].Y), new Point(coordenadasVerticesG2[to].X, coordenadasVerticesG2[to].Y));
                 }
             }
 
@@ -421,68 +373,6 @@ namespace ProyectoIsomorfismo
                 grafo2.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 12, coordenadasVerticesG2[j].Y -6));
             }
             #endregion
-        }
-
-        private int[] AristasRepetidas(int grafo)
-        {
-            int[] repeticiones = new int[g1.cantidadAristas];
-            int count = 1;
-
-            for(int x = 0; x < repeticiones.Length; x++)
-            {
-                repeticiones[x] = count;
-            }
-            
-            switch(grafo)
-            {
-                case 1:
-
-                    for (int j = 0; j < g1.cantidadAristas; j++)
-                    {
-                        count = 2;
-
-                        for (int i = j + 1; i < g1.cantidadAristas; i++)
-                        {
-                            if (g1.lstAristas[j].from == g1.lstAristas[i].from || g1.lstAristas[j].from == g1.lstAristas[i].to)
-                            {
-                                if(g1.lstAristas[j].to == g1.lstAristas[i].to || g1.lstAristas[j].to == g1.lstAristas[i].from)
-                                {
-                                    if(repeticiones[i] < count)
-                                    {
-                                        repeticiones[i] = count;
-                                        count++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                 
-                    break;
-                case 2:
-
-                    for (int j = 0; j < g2.cantidadAristas; j++)
-                    {
-                        count = 2;
-
-                        for (int i = j + 1; i < g2.cantidadAristas; i++)
-                        {
-                            if (g2.lstAristas[j].from == g2.lstAristas[i].from || g2.lstAristas[j].from == g2.lstAristas[i].to)
-                            {
-                                if (g2.lstAristas[j].to == g2.lstAristas[i].to || g2.lstAristas[j].to == g2.lstAristas[i].from)
-                                {
-                                    if (repeticiones[i] < count)
-                                    {
-                                        repeticiones[i] = count;
-                                        count++;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    break;
-            }
-
-            return repeticiones;
         }
 
         private int DeterminarRadio(int numeroGrafo)
