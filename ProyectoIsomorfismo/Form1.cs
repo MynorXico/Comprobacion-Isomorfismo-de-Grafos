@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using WMPLib;
 
 
 namespace ProyectoIsomorfismo
@@ -110,11 +111,26 @@ namespace ProyectoIsomorfismo
             }
         }
 
+        WindowsMediaPlayer sonido;
+
         /// <summary>
         /// Comprueba isomorfismo entre los dos grafos cargados
         /// </summary>
         private void btnComprobar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (sonido == null)
+                {
+                    sonido = new WindowsMediaPlayer();
+                    sonido.URL = "Resources/TheFinal.mp3";
+                    sonido.controls.play();
+                }
+            }
+            catch (Exception sound)
+            {
+
+            }
             if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, ref listaFunciones))
             {
                 MessageBox.Show("Los grafos no son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
