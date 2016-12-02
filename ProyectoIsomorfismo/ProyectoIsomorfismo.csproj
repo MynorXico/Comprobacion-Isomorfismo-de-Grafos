@@ -58,7 +58,6 @@
     <Compile Include="Grafo.cs" />
     <Compile Include="Isomorfismo.cs" />
     <Compile Include="Matriz.cs" />
-    <Compile Include="MatrizIncidencia.cs" />
     <Compile Include="OperacionesMatriz.cs" />
     <Compile Include="Permutador\Permutador.cs" />
     <Compile Include="Permutador\PermutadorAristas.cs" />

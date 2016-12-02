@@ -48,7 +48,7 @@ namespace ProyectoIsomorfismo
                 mismosGradosVertices(g1, g2) && encuentraFuncionAdyacencia(g1, g2, 
                 barraProgreso, cbFunciones, ref listaFunciones))){
                 barraProgreso.Maximum = 1;
-                barraProgreso.Value++;
+                barraProgreso.Value = 1;
                 return false;
             }
             return true;
@@ -238,9 +238,11 @@ namespace ProyectoIsomorfismo
             listaFunciones = lstFuncionesEncontradas;
             sw.Stop();
             // Muestra información del proceso al usuario
-            string msg = String.Format("El programa tardó {0}s {1}ms en encontrar las funcio"+
-                "nes", sw.Elapsed.Seconds, sw.Elapsed.Milliseconds);
-            MessageBox.Show(msg, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string msg = String.Format("El programa tardó {0} segundos con {1} milisegu"+
+                "ndos en intentar encontrar las funciones", sw.Elapsed.Seconds, 
+                sw.Elapsed.Milliseconds);
+            MessageBox.Show(msg, "Información", MessageBoxButtons.OK, 
+                MessageBoxIcon.Information);
             return pruebaSuperada;
         }
     }

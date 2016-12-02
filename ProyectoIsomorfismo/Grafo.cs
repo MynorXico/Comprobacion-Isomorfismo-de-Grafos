@@ -53,8 +53,7 @@ namespace ProyectoIsomorfismo
                 if (v.etiqueta == etiqueta)
                     return v;
             return nuevoVertice;
-        }      
-        
+        }              
         
         /// <summary>
         /// Genera la matriz de adyacencia del grafo.

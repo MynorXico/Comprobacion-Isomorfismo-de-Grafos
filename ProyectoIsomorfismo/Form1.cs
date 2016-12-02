@@ -44,11 +44,12 @@ namespace ProyectoIsomorfismo
                 btnGrafo1.Enabled = false;
                 if (!btnGrafo2.Enabled)
                 {
-                    // Deshabilita los botones que no se utilizarán más
+                    // Habilita los botones que se utilizarán
                     btnComprobar.Enabled = true;
                     gBGrafos.Enabled = true;
                     pBG1.Enabled = true;
                     pBG2.Enabled = true;
+                    btnVerGrafos.Enabled = true;
                 }
             }
             else
@@ -71,11 +72,12 @@ namespace ProyectoIsomorfismo
                 btnGrafo2.Enabled = false;
                 if (!btnGrafo1.Enabled)
                 {
-                    // Deshabilita los botones que no se utilizarán más
+                    // Habilita los botones que se utilizarán
                     btnComprobar.Enabled = true;
                     gBGrafos.Enabled = true;
                     pBG1.Enabled = true;
                     pBG2.Enabled = true;
+                    btnVerGrafos.Enabled = true;
                 }
             }
             else
@@ -94,6 +96,9 @@ namespace ProyectoIsomorfismo
             pbLoading.Maximum = 0;
             btnGrafo1.Enabled = true;
             btnGrafo2.Enabled = true;
+            btnVerGrafos.Enabled = false;
+            pBG1.Image = null;
+            pBG2.Image = null;
             btnComprobar.Enabled = false;
             cbFunciones.Enabled = false;
             cbFunciones.Items.Clear();
@@ -139,10 +144,10 @@ namespace ProyectoIsomorfismo
             // Llena el dataGridView con la información de la función seleccionada
             for(int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
             {
-                dgvMostrarFuncion[0, i].Value = listaFunciones[cbFunciones.SelectedIndex]
-                    .V1[i].etiqueta;
-                dgvMostrarFuncion[1, i].Value = listaFunciones[cbFunciones.SelectedIndex]
-                    .V2[i].etiqueta;
+                dgvMostrarFuncion[0, i].Value = Convert.ToChar(Convert.ToInt16(
+                    listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta)+65);
+                dgvMostrarFuncion[1, i].Value = Convert.ToChar(Convert.ToInt16(
+                    listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta)+97);
             }
         }
 
@@ -430,7 +435,7 @@ namespace ProyectoIsomorfismo
             {
                 Rectangle r = new Rectangle(coordenadasVerticesG2[j].X, coordenadasVerticesG2[j].Y, 8, 8);
                 grafo2.DrawEllipse(greenPen, r);
-                auxiliar = Convert.ToChar(j + 65);
+                auxiliar = Convert.ToChar(j + 97);
                 grafo2.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 12, coordenadasVerticesG2[j].Y -6));
             }
             #endregion
