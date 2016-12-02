@@ -40,7 +40,8 @@ namespace ProyectoIsomorfismo
 
             if(ofd.FileName == null) // Comprueba que se haya abierto un archivo.
             {
-                MessageBox.Show("El nombre del archivo no es válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El nombre del archivo no es válido", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             Grafo g1;
@@ -124,7 +125,8 @@ namespace ProyectoIsomorfismo
             }
             catch
             {
-                MessageBox.Show("Verifique que no existan espacios en blanco en el archivo de texto.", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Verifique que no existan espacios en blanco en el arch"+
+                    "ivo de texto.", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return false;
             }
             // Asigna el grafo generado al grafo pasado por referencia a la función

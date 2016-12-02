@@ -79,7 +79,8 @@ namespace ProyectoIsomorfismo
         /// </summary>
         /// <param name="s"> Cadena que se buscará entre las etiquetas de los vértices 
         /// conectados</param>
-        /// <returns> Verdadero si la etiqueta existe entre las conexiones de los vértices</returns>
+        /// <returns> Verdadero si la etiqueta existe entre las conexiones de los 
+        /// vértices</returns>
         public bool contains(string s)
         {
             foreach(Vertice v in verticesConectados)
