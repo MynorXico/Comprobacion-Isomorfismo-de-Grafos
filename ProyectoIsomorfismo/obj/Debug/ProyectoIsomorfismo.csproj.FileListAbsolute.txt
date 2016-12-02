@@ -7,3 +7,12 @@ C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\De
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csproj.GenerateResource.Cache
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.exe
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.pdb
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe.config
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.exe
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.pdb
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.pdb
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csprojResolveAssemblyReference.cache
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Form1.resources
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Properties.Resources.resources
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csproj.GenerateResource.Cache
