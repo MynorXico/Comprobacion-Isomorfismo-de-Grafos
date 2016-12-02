@@ -48,7 +48,7 @@ namespace ProyectoIsomorfismo
                 mismosGradosVertices(g1, g2) && encuentraFuncionAdyacencia(g1, g2, 
                 barraProgreso, cbFunciones, ref listaFunciones))){
                 barraProgreso.Maximum = 1;
-                barraProgreso.Value++;
+                barraProgreso.Value = 1;
                 return false;
             }
             return true;
@@ -133,7 +133,8 @@ namespace ProyectoIsomorfismo
         /// </summary>
         /// <param name="lista1"> Primera lista</param>
         /// <param name="lista2"> Segunda lista</param>
-        /// <returns> Verdadero si coinciden los grados en el mismo orden en la listas. </returns>
+        /// <returns> Verdadero si coinciden los grados en el mismo orden en la listas. 
+        /// </returns>
         private static bool gradosListasCoinciden(List<Vertice> lista1, 
             List<Vertice> lista2)
         {
@@ -173,7 +174,9 @@ namespace ProyectoIsomorfismo
        /// <param name="listaFunciones"> Lista en la que se almacenará la información de
        /// cada una de las funciones encontradas</param>
        /// <returns></returns>
-        static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2, ProgressBar barraProgreso, ComboBox cbFunciones, ref List<funcion> listaFunciones)
+        static bool encuentraFuncionAdyacencia(Grafo g1, Grafo g2, 
+            ProgressBar barraProgreso, ComboBox cbFunciones, 
+            ref List<funcion> listaFunciones)
         {
             // Variable booleana que indica si se encontró o no al menos una función de
             // isomorfismo para los dos grafos dados
@@ -219,7 +222,9 @@ namespace ProyectoIsomorfismo
                     // Es verdadero si para el producto de
                     // (posibleMatriz)*(matrizAdyacencia2)*(matryzAdyacencia2Transpuesta)
                     // se genera la matriz de adyacencia del primer grafo.
-                    matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(posibleMatriz)))){
+                    matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(
+                        posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(
+                            posibleMatriz)))){
                     funcion funcionNueva = new funcion(); // Se crea una nueva función
                     funcionNueva.V1 = vertices1;
                     funcionNueva.V2 = vertices2;
@@ -233,8 +238,11 @@ namespace ProyectoIsomorfismo
             listaFunciones = lstFuncionesEncontradas;
             sw.Stop();
             // Muestra información del proceso al usuario
-            string msg = String.Format("El programa tardó {0}ms en encontrar las funciones", sw.ElapsedMilliseconds);
-            MessageBox.Show(msg, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string msg = String.Format("El programa tardó {0} segundos con {1} milisegu"+
+                "ndos en intentar encontrar las funciones", sw.Elapsed.Seconds, 
+                sw.Elapsed.Milliseconds);
+            MessageBox.Show(msg, "Información", MessageBoxButtons.OK, 
+                MessageBoxIcon.Information);
             return pruebaSuperada;
         }
     }

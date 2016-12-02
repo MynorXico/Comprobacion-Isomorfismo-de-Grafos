@@ -42,17 +42,17 @@
             this.cargarDatosDeNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.gBGrafos = new System.Windows.Forms.GroupBox();
-            this.btnVerGrafos = new System.Windows.Forms.Button();
-            this.pBG1 = new System.Windows.Forms.PictureBox();
-            this.pBG2 = new System.Windows.Forms.PictureBox();
-            this.lblGrafo1 = new System.Windows.Forms.Label();
             this.lblGrafo2 = new System.Windows.Forms.Label();
+            this.lblGrafo1 = new System.Windows.Forms.Label();
+            this.pBG2 = new System.Windows.Forms.PictureBox();
+            this.pBG1 = new System.Windows.Forms.PictureBox();
+            this.btnVerGrafos = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.gBGrafos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBG1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBG2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBG1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGrafo1
@@ -159,7 +159,7 @@
             this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cargarDatosDeNuevoToolStripMenuItem});
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.testToolStripMenuItem.Text = "Test";
             // 
             // cargarDatosDeNuevoToolStripMenuItem
@@ -193,26 +193,23 @@
             this.gBGrafos.TabStop = false;
             this.gBGrafos.Text = "Grafos";
             // 
-            // btnVerGrafos
+            // lblGrafo2
             // 
-            this.btnVerGrafos.Location = new System.Drawing.Point(21, 32);
-            this.btnVerGrafos.Name = "btnVerGrafos";
-            this.btnVerGrafos.Size = new System.Drawing.Size(77, 23);
-            this.btnVerGrafos.TabIndex = 0;
-            this.btnVerGrafos.Text = "Ver Grafos";
-            this.btnVerGrafos.UseVisualStyleBackColor = true;
-            this.btnVerGrafos.Click += new System.EventHandler(this.btnVerGrafos_Click);
+            this.lblGrafo2.AutoSize = true;
+            this.lblGrafo2.Location = new System.Drawing.Point(396, 66);
+            this.lblGrafo2.Name = "lblGrafo2";
+            this.lblGrafo2.Size = new System.Drawing.Size(42, 13);
+            this.lblGrafo2.TabIndex = 4;
+            this.lblGrafo2.Text = "Grafo 2";
             // 
-            // pBG1
+            // lblGrafo1
             // 
-            this.pBG1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pBG1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pBG1.Enabled = false;
-            this.pBG1.Location = new System.Drawing.Point(21, 84);
-            this.pBG1.Name = "pBG1";
-            this.pBG1.Size = new System.Drawing.Size(250, 220);
-            this.pBG1.TabIndex = 1;
-            this.pBG1.TabStop = false;
+            this.lblGrafo1.AutoSize = true;
+            this.lblGrafo1.Location = new System.Drawing.Point(121, 68);
+            this.lblGrafo1.Name = "lblGrafo1";
+            this.lblGrafo1.Size = new System.Drawing.Size(42, 13);
+            this.lblGrafo1.TabIndex = 3;
+            this.lblGrafo1.Text = "Grafo 1";
             // 
             // pBG2
             // 
@@ -225,23 +222,27 @@
             this.pBG2.TabIndex = 2;
             this.pBG2.TabStop = false;
             // 
-            // lblGrafo1
+            // pBG1
             // 
-            this.lblGrafo1.AutoSize = true;
-            this.lblGrafo1.Location = new System.Drawing.Point(121, 68);
-            this.lblGrafo1.Name = "lblGrafo1";
-            this.lblGrafo1.Size = new System.Drawing.Size(42, 13);
-            this.lblGrafo1.TabIndex = 3;
-            this.lblGrafo1.Text = "Grafo 1";
+            this.pBG1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pBG1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pBG1.Enabled = false;
+            this.pBG1.Location = new System.Drawing.Point(21, 84);
+            this.pBG1.Name = "pBG1";
+            this.pBG1.Size = new System.Drawing.Size(250, 220);
+            this.pBG1.TabIndex = 1;
+            this.pBG1.TabStop = false;
             // 
-            // lblGrafo2
+            // btnVerGrafos
             // 
-            this.lblGrafo2.AutoSize = true;
-            this.lblGrafo2.Location = new System.Drawing.Point(396, 66);
-            this.lblGrafo2.Name = "lblGrafo2";
-            this.lblGrafo2.Size = new System.Drawing.Size(42, 13);
-            this.lblGrafo2.TabIndex = 4;
-            this.lblGrafo2.Text = "Grafo 2";
+            this.btnVerGrafos.Enabled = false;
+            this.btnVerGrafos.Location = new System.Drawing.Point(21, 32);
+            this.btnVerGrafos.Name = "btnVerGrafos";
+            this.btnVerGrafos.Size = new System.Drawing.Size(77, 23);
+            this.btnVerGrafos.TabIndex = 0;
+            this.btnVerGrafos.Text = "Ver Grafos";
+            this.btnVerGrafos.UseVisualStyleBackColor = true;
+            this.btnVerGrafos.Click += new System.EventHandler(this.btnVerGrafos_Click);
             // 
             // Form1
             // 
@@ -264,8 +265,8 @@
             this.menuStrip1.PerformLayout();
             this.gBGrafos.ResumeLayout(false);
             this.gBGrafos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pBG1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBG2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBG1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

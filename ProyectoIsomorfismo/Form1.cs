@@ -14,11 +14,15 @@ namespace ProyectoIsomorfismo
 {
     public partial class Form1 : Form
     {
+        // Elementos para la gráfica de los grafos.
         const int ANGULO_CIRCULO = 360;
         private Coordenadas[] coordenadasVerticesG1;
-        private Coordenadas[] coordenadasVerticesG2;       
+        private Coordenadas[] coordenadasVerticesG2;
+
+        // Grafos       
         Grafo g1;
         Grafo g2;
+        // Lista de funciones de isomorfismo
         List<funcion> listaFunciones;
 
         public Form1()
@@ -26,29 +30,41 @@ namespace ProyectoIsomorfismo
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Carga del primer grafo
+        /// </summary>
         private void btnGrafo1_Click(object sender, EventArgs e)
         {
+            // Realiza la carga de datos
             CargaDatos c1 = new CargaDatos();
             if(c1.cargarGrafo(ref g1))
             {
-                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnGrafo1.Enabled = false;
                 if (!btnGrafo2.Enabled)
                 {
+                    // Habilita los botones que se utilizarán
                     btnComprobar.Enabled = true;
                     gBGrafos.Enabled = true;
                     pBG1.Enabled = true;
                     pBG2.Enabled = true;
+                    btnVerGrafos.Enabled = true;
                 }
             }
             else
             {
-                MessageBox.Show("El grafo no se cargó corectamente", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("El grafo no se cargó corectamente", "Error", 
+                    MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
 
+        /// <summary>
+        /// Carag del segundo grafo
+        /// </summary>
         private void btnGrafo2_Click(object sender, EventArgs e)
         {
+            // Realiza la carga de datos   
             CargaDatos c1 = new CargaDatos();
             if (c1.cargarGrafo(ref g2))
             {
@@ -56,10 +72,12 @@ namespace ProyectoIsomorfismo
                 btnGrafo2.Enabled = false;
                 if (!btnGrafo1.Enabled)
                 {
+                    // Habilita los botones que se utilizarán
                     btnComprobar.Enabled = true;
                     gBGrafos.Enabled = true;
                     pBG1.Enabled = true;
                     pBG2.Enabled = true;
+                    btnVerGrafos.Enabled = true;
                 }
             }
             else
@@ -68,12 +86,19 @@ namespace ProyectoIsomorfismo
             }
         }
 
+        /// <summary>
+        /// Restablece todos los controles a su estado previo a ser utilizado por el
+        /// usuario
+        /// </summary>
         private void Reiniciar()
         {
             pbLoading.Value = 0;
             pbLoading.Maximum = 0;
             btnGrafo1.Enabled = true;
             btnGrafo2.Enabled = true;
+            btnVerGrafos.Enabled = false;
+            pBG1.Image = null;
+            pBG2.Image = null;
             btnComprobar.Enabled = false;
             cbFunciones.Enabled = false;
             cbFunciones.Items.Clear();
@@ -85,6 +110,9 @@ namespace ProyectoIsomorfismo
             }
         }
 
+        /// <summary>
+        /// Comprueba isomorfismo entre los dos grafos cargados
+        /// </summary>
         private void btnComprobar_Click(object sender, EventArgs e)
         {
             if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, ref listaFunciones))
@@ -100,8 +128,12 @@ namespace ProyectoIsomorfismo
             btnComprobar.Enabled = false;
         }
 
+        /// <summary>
+        /// Muestra la información de las distintas funciones encontradas
+        /// </summary>
         private void cbFunciones_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Agrega filas al dataGridView en caso de que no haya la cantidad necesaria
             if(dgvMostrarFuncion.Rows.Count != g1.cantidadVertices)
             {
                 for(int i = 0; i < g1.cantidadVertices; i++)
@@ -109,25 +141,44 @@ namespace ProyectoIsomorfismo
                     dgvMostrarFuncion.Rows.Add();
                 }
             }
-
+            // Llena el dataGridView con la información de la función seleccionada
             for(int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
             {
-                dgvMostrarFuncion[0, i].Value = listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta;
-                dgvMostrarFuncion[1, i].Value = listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta;
+                dgvMostrarFuncion[0, i].Value = Convert.ToChar(Convert.ToInt16(
+                    listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta)+65);
+                dgvMostrarFuncion[1, i].Value = Convert.ToChar(Convert.ToInt16(
+                    listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta)+97);
             }
-
-
         }
 
+        /// <summary>
+        /// Restablece todos los controles a su estado previo a ser utilizado el programa
+        /// </summary>
         private void cargarDatosDeNuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Reiniciar();
-            
+            Reiniciar();            
         }
 
-        //METODOS AGREGADOS 
+        /// <summary>
+        /// Realiza la gráfica de los dos grafos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnVerGrafos_Click(object sender, EventArgs e)
+        {
+            DeterminarCoordenadas(g1.cantidadVertices, g2.cantidadVertices);
+            DibujarGrafos();
+        }
 
-        private void DeterminarCoordenadas(int cantidadVerticesG1, int cantidadVerticesG2)
+        // Métodos para graficar los grafos 
+
+        /// <summary>
+        /// Indica las coordenadas en las que se agregarán los vértices
+        /// </summary>
+        /// <param name="cantidadVerticesG1"> Vértices de primer grafo </param>
+        /// <param name="cantidadVerticesG2"> Vértices de segundo grafo </param>
+        private void DeterminarCoordenadas(int cantidadVerticesG1, 
+            int cantidadVerticesG2)
         {
             //Arreglo de coordenadas tanto del Grafo 1 como del Grafo 2
             coordenadasVerticesG1 = new Coordenadas[cantidadVerticesG1];
@@ -170,6 +221,13 @@ namespace ProyectoIsomorfismo
 
         }
 
+        /// <summary>
+        /// Coordenada y del vértice
+        /// </summary>
+        /// <param name="radio"> Radio de cada vértice </param>
+        /// <param name="angulo"> Ángulo del vértice (360) conveniemtemente</param>
+        /// <param name="centroY"> Centro del vértice en y </param>
+        /// <returns></returns>
         private int CoordenadaY(int radio, double angulo, int centroY)
         {
             //Almacena la coordenada y del vertice 
@@ -228,7 +286,13 @@ namespace ProyectoIsomorfismo
 
             return coordenadaY;
         }
-
+        /// <summary>
+        /// Coordenada x del vértice 
+        /// </summary>
+        /// <param name="radio"> Radio del vértice </param>
+        /// <param name="angulo"> Ángulo del vértice (Convenientemente 360)</param>
+        /// <param name="centroX"> Coordenada x del centro del vértice </param>
+        /// <returns></returns>
         private int CoordenadaX(int radio, double angulo, int centroX)
         {
             //Almacena el valor de la coordenada
@@ -287,7 +351,9 @@ namespace ProyectoIsomorfismo
 
             return coordenadaX;
         }
-
+        /// <summary>
+        /// Crea el dibujo de los dos grafos
+        /// </summary>
         private void DibujarGrafos()
         {
             Bitmap a;
@@ -369,12 +435,16 @@ namespace ProyectoIsomorfismo
             {
                 Rectangle r = new Rectangle(coordenadasVerticesG2[j].X, coordenadasVerticesG2[j].Y, 8, 8);
                 grafo2.DrawEllipse(greenPen, r);
-                auxiliar = Convert.ToChar(j + 65);
+                auxiliar = Convert.ToChar(j + 97);
                 grafo2.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 12, coordenadasVerticesG2[j].Y -6));
             }
             #endregion
         }
-
+        /// <summary>
+        /// Determina el radio en base al número de grafo
+        /// </summary>
+        /// <param name="numeroGrafo"></param>
+        /// <returns></returns>
         private int DeterminarRadio(int numeroGrafo)
         {
             int radio = 0;
@@ -396,7 +466,11 @@ namespace ProyectoIsomorfismo
 
             return radio;
         }
-
+        /// <summary>
+        /// Determina el centro en x en base al número de grafo
+        /// </summary>
+        /// <param name="numeroGrafo"></param>
+        /// <returns></returns>
         private int DeterminarCentroX(int numeroGrafo)
         {
             int centroX = 0;
@@ -418,7 +492,11 @@ namespace ProyectoIsomorfismo
 
             return centroX;
         }
-
+        /// <summary>
+        /// Determina el centro en y en base al número de grafo
+        /// </summary>
+        /// <param name="numeroGrafo"></param>
+        /// <returns></returns>
         private int DeterminarCentroY(int numeroGrafo)
         {
             int centroY = 0;
@@ -441,10 +519,5 @@ namespace ProyectoIsomorfismo
             return centroY;
         }
 
-        private void btnVerGrafos_Click(object sender, EventArgs e)
-        {
-            DeterminarCoordenadas(g1.cantidadVertices, g2.cantidadVertices);
-            DibujarGrafos();
-        }
     }
 }
