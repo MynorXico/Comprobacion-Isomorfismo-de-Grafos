@@ -8,13 +8,25 @@ namespace ProyectoIsomorfismo
 {
     class PermutadorVertices
     {
+        internal PermutadorUtilities PermutadorUtilities
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Funcion que permuta una lista de vertices
         /// </summary>
         /// <param name="listaPermutada"></param>
         /// <returns></returns>
-        public List<List<Vertice>> combinar(List<Vertice> listaPermutada, List<Vertice> 
-            vertices1, Matriz matrizAdyacencia1, Matriz matrizAdyacencia2, 
+        public List<List<Vertice>> combinar(List<Vertice> listaPermutada, List<Vertice>
+            vertices1, Matriz matrizAdyacencia1, Matriz matrizAdyacencia2,
             ref bool encuentraRelacion, ref List<funcion> listaFunciones)
         {
             /* Se reinician las permutaciones por si alguna lista estaba llena en las uti
@@ -32,13 +44,13 @@ namespace ProyectoIsomorfismo
 
             /* Como lo que se permuta es un string se crea una cadena con los ID de los 
             vertices. */
-            for (int i = 0;i < listaPermutada.Count;i++)
+            for (int i = 0; i < listaPermutada.Count; i++)
             {
                 permutarCadena = permutarCadena + (char)listaPermutada[i].ID;
             }
 
             // Se manda a combinar la cadena. 
-            Combinacion(permutarCadena, vertices1, matrizAdyacencia1, matrizAdyacencia2, 
+            Combinacion(permutarCadena, vertices1, matrizAdyacencia1, matrizAdyacencia2,
                 ref encuentraRelacion, ref listaFunciones);
 
             // Se reciben todas las combinaciones en una lista.
@@ -52,11 +64,11 @@ namespace ProyectoIsomorfismo
         /// </summary>
         /// <param name="s"></param>
         public void Combinacion(string s, List<Vertice> vertices1, Matriz matrizAdyacencia1
-            , Matriz matrizAdyacencia2, ref bool encuentraRelacion, 
+            , Matriz matrizAdyacencia2, ref bool encuentraRelacion,
             ref List<funcion> listaFunciones)
         {
             bool[] esIgual = new bool[s.Length];
-            Combinaciones(s, "", esIgual, vertices1, matrizAdyacencia1, matrizAdyacencia2, 
+            Combinaciones(s, "", esIgual, vertices1, matrizAdyacencia1, matrizAdyacencia2,
                 ref encuentraRelacion, ref listaFunciones);
         }
 
@@ -79,7 +91,7 @@ namespace ProyectoIsomorfismo
             if (cadena.Length == combinacion.Length)
             {
                 // Se manda a agregar la combinación en las utilidades del permutador.
-                PermutadorUtilities.getInstancia().agregarListaProb(combinacion, vertices1, 
+                PermutadorUtilities.getInstancia().agregarListaProb(combinacion, vertices1,
                     matrizAdyacencia1, matrizAdyacencia2, ref encuentraRelacion,
                     ref listaFunciones);
 
@@ -99,7 +111,7 @@ namespace ProyectoIsomorfismo
                         break;
 
                     iguales[i] = true;
-                    Combinaciones(cadena, combinacion + cadena[i], iguales, vertices1, 
+                    Combinaciones(cadena, combinacion + cadena[i], iguales, vertices1,
                         matrizAdyacencia1, matrizAdyacencia2, ref encuentraRelacion,
                         ref listaFunciones);
                     iguales[i] = false;

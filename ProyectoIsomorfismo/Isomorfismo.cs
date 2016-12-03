@@ -14,6 +14,18 @@ namespace ProyectoIsomorfismo
     {
         public List<Vertice> V1;
         public List<Vertice> V2;
+
+        internal Isomorfismo Isomorfismo
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
     }
 
     /// <summary>
@@ -21,7 +33,56 @@ namespace ProyectoIsomorfismo
     /// lación de isomorfismo entre dos grafos.
     /// </summary>
     class Isomorfismo
-    {        
+    {
+
+        internal PermutadorVertices PermutadorVertices
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        internal Matriz Matriz
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public Form1 Form1
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        internal Grafo Grafo
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Función que realiza las llamadas a las funciones que realizan las va-
         /// lidaciones que verifican la coincidencia en cantidad de aristas, can-

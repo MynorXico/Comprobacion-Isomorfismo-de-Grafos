@@ -18,7 +18,7 @@ using Rectangle = System.Drawing.Rectangle;
 
 namespace ProyectoIsomorfismo
 {
-    public partial class Form1 : Form
+    public partial class Form1
     {
         // Elementos para la gráfica de los grafos.
         const int ANGULO_CIRCULO = 360;
@@ -37,6 +37,42 @@ namespace ProyectoIsomorfismo
             InitializeComponent();
         }
 
+        internal Properties.Resources Resources
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        internal Coordenadas Coordenadas
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        internal Grafo Grafo
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Carga del primer grafo
         /// </summary>
@@ -44,9 +80,9 @@ namespace ProyectoIsomorfismo
         {
             // Realiza la carga de datos
             CargaDatos c1 = new CargaDatos();
-            if(c1.cargarGrafo(ref g1))
+            if (c1.cargarGrafo(ref g1))
             {
-                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa", 
+                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnGrafo1.Enabled = false;
                 if (!btnGrafo2.Enabled)
@@ -61,11 +97,11 @@ namespace ProyectoIsomorfismo
             }
             else
             {
-                MessageBox.Show("El grafo no se cargó corectamente", "Error", 
-                    MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("El grafo no se cargó corectamente", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
         /// <summary>
         /// Carag del segundo grafo
         /// </summary>
@@ -75,7 +111,7 @@ namespace ProyectoIsomorfismo
             CargaDatos c1 = new CargaDatos();
             if (c1.cargarGrafo(ref g2))
             {
-                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa", 
+                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnGrafo2.Enabled = false;
                 if (!btnGrafo1.Enabled)
@@ -90,7 +126,7 @@ namespace ProyectoIsomorfismo
             }
             else
             {
-                MessageBox.Show("El grafo no se cargó corectamente", "Error", 
+                MessageBox.Show("El grafo no se cargó corectamente", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -114,24 +150,24 @@ namespace ProyectoIsomorfismo
             cbFunciones.Items.Clear();
             dgvMostrarFuncion.Enabled = false;
             dgvMostrarFuncion.DataSource = null;
-            while(dgvMostrarFuncion.Rows.Count != 0)
+            while (dgvMostrarFuncion.Rows.Count != 0)
             {
                 dgvMostrarFuncion.Rows.RemoveAt(0);
             }
         }
 
-        
+
 
         /// <summary>
         /// Comprueba isomorfismo entre los dos grafos cargados
         /// </summary>
         private void btnComprobar_Click(object sender, EventArgs e)
         {
-           
-            if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, 
+
+            if (!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones,
                 ref listaFunciones))
             {
-                MessageBox.Show("Los grafos no son isomorfos.", "Resultado", 
+                MessageBox.Show("Los grafos no son isomorfos.", "Resultado",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -151,24 +187,24 @@ namespace ProyectoIsomorfismo
         private void cbFunciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Agrega filas al dataGridView en caso de que no haya la cantidad necesaria
-            if(dgvMostrarFuncion.Rows.Count != g1.cantidadVertices)
+            if (dgvMostrarFuncion.Rows.Count != g1.cantidadVertices)
             {
-                for(int i = 0; i < g1.cantidadVertices; i++)
+                for (int i = 0; i < g1.cantidadVertices; i++)
                 {
                     dgvMostrarFuncion.Rows.Add();
                 }
             }
 
-            if(g1.lstVertices.Count > 9)
+            if (g1.lstVertices.Count > 9)
                 listaFunciones = PermutadorUtilities.getInstancia().funcionIsomorfica;
 
             // Llena el dataGridView con la información de la función seleccionada
-            for(int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
+            for (int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
             {
                 dgvMostrarFuncion[0, i].Value = Convert.ToChar(Convert.ToInt16(
-                    listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta)+65);
+                    listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta) + 65);
                 dgvMostrarFuncion[1, i].Value = Convert.ToChar(Convert.ToInt16(
-                    listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta)+97);
+                    listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta) + 97);
             }
         }
 
@@ -177,7 +213,7 @@ namespace ProyectoIsomorfismo
         /// </summary>
         private void cargarDatosDeNuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Reiniciar();            
+            Reiniciar();
         }
 
         /// <summary>
@@ -198,7 +234,7 @@ namespace ProyectoIsomorfismo
         /// </summary>
         /// <param name="cantidadVerticesG1"> Vértices de primer grafo </param>
         /// <param name="cantidadVerticesG2"> Vértices de segundo grafo </param>
-        private void DeterminarCoordenadas(int cantidadVerticesG1,  int cantidadVerticesG2)
+        private void DeterminarCoordenadas(int cantidadVerticesG1, int cantidadVerticesG2)
         {
             //Arreglo de coordenadas tanto del Grafo 1 como del Grafo 2
             coordenadasVerticesG1 = new Coordenadas[cantidadVerticesG1];
@@ -285,7 +321,7 @@ namespace ProyectoIsomorfismo
                     if (angulo < 90 && angulo > 0)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((angulo) * 
+                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((angulo) *
                             (Math.PI / 180)));
                         break;
                     }
@@ -294,7 +330,7 @@ namespace ProyectoIsomorfismo
                     if (angulo < 180 && angulo > 90)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((180 - angulo) * 
+                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((180 - angulo) *
                             (Math.PI / 180)));
                         break;
                     }
@@ -303,7 +339,7 @@ namespace ProyectoIsomorfismo
                     if (angulo < 270 && angulo > 180)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY + (int)(radio * Math.Sin((angulo - 180) * 
+                        coordenadaY = coordenadaY + (int)(radio * Math.Sin((angulo - 180) *
                             (Math.PI / 180)));
                         break;
                     }
@@ -356,12 +392,12 @@ namespace ProyectoIsomorfismo
 
                     // Math.Sin(), opera con radianes por lo que se realizo la conversion 
                     // del angulo en grados a radianes utilizando la operacion Math.PI/180 */
-                    
+
                     //Primer cuadrante
                     if (angulo < 90 && angulo > 0)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - angulo) * 
+                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - angulo) *
                             (Math.PI / 180)));
                         break;
                     }
@@ -370,7 +406,7 @@ namespace ProyectoIsomorfismo
                     if (angulo < 180 && angulo > 90)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX - (int)(radio * Math.Sin((90 - (180 - 
+                        coordenadaX = coordenadaX - (int)(radio * Math.Sin((90 - (180 -
                             angulo)) * (Math.PI / 180)));
                         break;
                     }
@@ -388,7 +424,7 @@ namespace ProyectoIsomorfismo
                     if (angulo < 360 && angulo > 270)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - (360 - 
+                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - (360 -
                             angulo)) * (Math.PI / 180)));
                         break;
                     }
@@ -558,18 +594,18 @@ namespace ProyectoIsomorfismo
             #region Dibujar Vertices:
             //Dibuja los vertices del grafo 1
             for (int i = 0; i < coordenadasVerticesG1.Length; i++)
-            {  
+            {
                 /* Genera un rectangulo sobre el cual se dibujará la elipse rellena que 
                   representará un vertice del grafo.*/
                 Rectangle r = new Rectangle(coordenadasVerticesG1[i].X, coordenadasVerticesG1[i].Y, 5, 5);
                 grafo1.DrawEllipse(redPen, r);
 
                 /* Asigna un identificador a cada vertice del grafo*/
-                grafo1.DrawString(Convert.ToString(i), arial, Brushes.Blue, new PointF(coordenadasVerticesG1[i].X + 8 , coordenadasVerticesG1[i].Y -4));
+                grafo1.DrawString(Convert.ToString(i), arial, Brushes.Blue, new PointF(coordenadasVerticesG1[i].X + 8, coordenadasVerticesG1[i].Y - 4));
             }
 
             //Dibuja los vertices del grafo 2
-            for(int j = 0; j < coordenadasVerticesG2.Length; j++)
+            for (int j = 0; j < coordenadasVerticesG2.Length; j++)
             {
                 /* Genera un rectangulo sobre el cual se dibujará la elipse rellena que 
                   representará un vertice del grafo.*/
@@ -577,7 +613,7 @@ namespace ProyectoIsomorfismo
                 grafo2.DrawEllipse(greenPen, r);
 
                 /* Asigna un identificador a cada vertice del grafo*/
-                grafo2.DrawString(Convert.ToString(j), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 8 , coordenadasVerticesG2[j].Y -4));
+                grafo2.DrawString(Convert.ToString(j), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 8, coordenadasVerticesG2[j].Y - 4));
             }
             #endregion
         }
@@ -621,7 +657,7 @@ namespace ProyectoIsomorfismo
                             if (g1.lstAristas[j].from == g1.lstAristas[i].from ||
                                 g1.lstAristas[j].from == g1.lstAristas[i].to)
                             {
-                                if (g1.lstAristas[j].to == g1.lstAristas[i].to || 
+                                if (g1.lstAristas[j].to == g1.lstAristas[i].to ||
                                     g1.lstAristas[j].to == g1.lstAristas[i].from)
                                 {
                                     //Si encuentra una arista repetida le asigna el valor que tenga count...
@@ -656,10 +692,10 @@ namespace ProyectoIsomorfismo
 
                         for (int i = j + 1; i < g2.cantidadAristas; i++)
                         {
-                            if (g2.lstAristas[j].from == g2.lstAristas[i].from || 
+                            if (g2.lstAristas[j].from == g2.lstAristas[i].from ||
                                 g2.lstAristas[j].from == g2.lstAristas[i].to)
                             {
-                                if (g2.lstAristas[j].to == g2.lstAristas[i].to || 
+                                if (g2.lstAristas[j].to == g2.lstAristas[i].to ||
                                     g2.lstAristas[j].to == g2.lstAristas[i].from)
                                 {
                                     //Si encuentra una arista repetida le asigna el valor que tenga count...
@@ -770,7 +806,7 @@ namespace ProyectoIsomorfismo
             return centroY;
         }
 
-        
+
 
         /// <summary>
         /// Funcion que genera el reporte de las funciones isomórficas en PDF
@@ -830,12 +866,12 @@ namespace ProyectoIsomorfismo
                     for (int j = 0; j < listaFunciones[i].V1.Count; j++)
                     {
                         clGrafo1 =
-                            new PdfPCell(new Phrase(((char) listaFunciones[i].V1[j].ID).
+                            new PdfPCell(new Phrase(((char)listaFunciones[i].V1[j].ID).
                             ToString(), _standardFont));
                         clGrafo1.BorderWidth = 0;
 
                         clGrafo2 =
-                            new PdfPCell(new Phrase(((char) listaFunciones[i].V2[j].ID).
+                            new PdfPCell(new Phrase(((char)listaFunciones[i].V2[j].ID).
                             ToString().ToLower(),
                                 _standardFont));
                         clGrafo2.BorderWidth = 0;

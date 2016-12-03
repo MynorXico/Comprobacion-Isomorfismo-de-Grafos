@@ -10,7 +10,19 @@ namespace ProyectoIsomorfismo
     /// Contiene funciones necesarias para operar matrices.
     /// </summary>
     class OperacionesMatriz
-    {   
+    {
+        internal Matriz Matriz
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Multiplicación de dos matrices
         /// </summary>

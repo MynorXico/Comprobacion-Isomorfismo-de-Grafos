@@ -23,6 +23,18 @@ namespace ProyectoIsomorfismo
         /// </summary>
         static List<Arista> listaAristas;
 
+        public Form1 Form1
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Función encargada de la lectura de datos del grafo desde un archivo de texto.
         /// </summary>

@@ -25,6 +25,42 @@ namespace ProyectoIsomorfismo
         /// </summary>
         public List<Arista> lstAristas { get; set; }
 
+        internal Vertice Vertice
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public Arista Arista
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        internal CargaDatos CargaDatos
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// Constructor de la clase Grafo
         /// </summary>
