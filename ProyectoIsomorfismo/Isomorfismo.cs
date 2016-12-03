@@ -233,14 +233,22 @@ namespace ProyectoIsomorfismo
                     numeroFunciones++;
                     cbFunciones.Items.Add(string.Format("Funcion #{0}", numeroFunciones));
                     pruebaSuperada = true;
+                    if(vertices1.Count > 9)
+                        break;
                 }
             }
             listaFunciones = lstFuncionesEncontradas;
             sw.Stop();
             // Muestra información del proceso al usuario
-            string msg = String.Format("El programa tardó {0} segundos con {1} milisegu"+
-                "ndos en intentar encontrar las funciones", sw.Elapsed.Seconds, 
+            string msg = String.Format("El programa tardó {0} minutos {1} segundos con {2} milisegu"+
+                "ndos en intentar encontrar las funciones", sw.Elapsed.Minutes, sw.Elapsed.Seconds, 
                 sw.Elapsed.Milliseconds);
+            if(vertices1.Count > 9)
+            {
+                msg = msg + "\nEl proyecto aún no puede generar todas las funciones de isomorfismo "
+                    +"para una cantidad de vértices mayor a 9.\nSi desea colaborar al proyecto puede "+
+                    "aportar al siguiente repositorio: https://github.com/MynorXico/ProyectoIsomorfismo";
+            }
             MessageBox.Show(msg, "Información", MessageBoxButtons.OK, 
                 MessageBoxIcon.Information);
             return pruebaSuperada;
