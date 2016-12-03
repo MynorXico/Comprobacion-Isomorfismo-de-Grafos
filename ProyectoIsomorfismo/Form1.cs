@@ -158,6 +158,7 @@ namespace ProyectoIsomorfismo
                     dgvMostrarFuncion.Rows.Add();
                 }
             }
+
             if(g1.lstVertices.Count > 9)
                 listaFunciones = PermutadorUtilities.getInstancia().funcionIsomorfica;
 
@@ -774,6 +775,8 @@ namespace ProyectoIsomorfismo
             //Variables para escribir en el pdf
             PdfWriter writer;
             Document doc = new Document(PageSize.LETTER);
+            if (g1.lstVertices.Count > 9)
+                listaFunciones = PermutadorUtilities.getInstancia().funcionIsomorfica;
 
             try
             {
