@@ -52,7 +52,9 @@ namespace ProyectoIsomorfismo
         /// a una lista
         /// </summary>
         /// <param name="permutacion"></param>
-        public void agregarListaProb(string permutacion, List<Vertice> vertices1, Matriz matrizAdyacencia1, Matriz matrizAdyacencia2, ref bool encuentraRelacion, ref List<funcion> listaFunciones)
+        public void agregarListaProb(string permutacion, List<Vertice> vertices1, Matriz
+            matrizAdyacencia1, Matriz matrizAdyacencia2, ref bool encuentraRelacion,
+            ref List<funcion> listaFunciones)
         {
             for (int i = 0; i < permutacion.Length; i++)
             {

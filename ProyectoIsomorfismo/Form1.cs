@@ -775,13 +775,17 @@ namespace ProyectoIsomorfismo
             //Variables para escribir en el pdf
             PdfWriter writer;
             Document doc = new Document(PageSize.LETTER);
+
+            //Se llenan la lista de funciones cuando el número de vertices es > 9
             if (g1.lstVertices.Count > 9)
                 listaFunciones = PermutadorUtilities.getInstancia().funcionIsomorfica;
 
             try
             {
                 //Path en donde se escribira el archivo
-                writer = PdfWriter.GetInstance(doc, new FileStream(Directory.GetCurrentDirectory() + "\\Funciones de Isomorfismo.pdf", FileMode.Create));
+                writer = PdfWriter.GetInstance(doc,
+                    new FileStream(Directory.GetCurrentDirectory() + "\\Funciones de " +
+                                   "Isomorfismo.pdf", FileMode.Create));
 
                 //Autores del archivo
                 doc.AddAuthor("Matemática Discreta II");
@@ -789,11 +793,16 @@ namespace ProyectoIsomorfismo
                 doc.Open();
 
                 //Fuente del archivo
-                iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
-                doc.Add(new Paragraph("Lista de funciones isomórficas - Matemática Discreta II"));
+                iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(
+                    iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL
+                    , BaseColor.BLACK);
+                doc.Add(new Paragraph("Lista de funciones isomórficas - Matemática " +
+                                      "Discreta II"));
                 doc.Add(Chunk.NEWLINE);
 
-                //Se escriben todas las funciones isomorficas recorriendo la lista de funciones con un for
+                /* Se escriben todas las funciones isomorficas recorriendo la lista de 
+                funciones con un for. */
+
                 for (int i = 0; i < listaFunciones.Count; i++)
                 {
                     doc.Add(new Paragraph("Función Isomórfica No. " + (i + 1)));
@@ -813,10 +822,15 @@ namespace ProyectoIsomorfismo
 
                     for (int j = 0; j < listaFunciones[i].V1.Count; j++)
                     {
-                        clGrafo1 = new PdfPCell(new Phrase(((char)listaFunciones[i].V1[j].ID).ToString(), _standardFont));
+                        clGrafo1 =
+                            new PdfPCell(new Phrase(((char) listaFunciones[i].V1[j].ID).
+                            ToString(), _standardFont));
                         clGrafo1.BorderWidth = 0;
 
-                        clGrafo2 = new PdfPCell(new Phrase(((char)listaFunciones[i].V2[j].ID).ToString().ToLower(), _standardFont));
+                        clGrafo2 =
+                            new PdfPCell(new Phrase(((char) listaFunciones[i].V2[j].ID).
+                            ToString().ToLower(),
+                                _standardFont));
                         clGrafo2.BorderWidth = 0;
                         tblIsomorfismo.AddCell(clGrafo1);
                         tblIsomorfismo.AddCell(clGrafo2);
@@ -836,8 +850,14 @@ namespace ProyectoIsomorfismo
             catch (IOException file)
             {
                 //Si se intenta generar un archivo cuando este esta abierto marca error
-                MessageBox.Show("Cierre el archivo de isomórfismo que tiene abierto antes de generar uno nuevo.");
-            }     
+                MessageBox.Show("Cierre el archivo de isomórfismo que tiene abierto " +
+                                "antes de generar uno nuevo.");
+            }
+            catch (UnauthorizedAccessException sinPermisos)
+            {
+                MessageBox.Show("Por favor para generar el PDF ejecuta la aplicación " +
+                                "como administrador");
+            }
         }
 
         private void btnReiniciar_Click(object sender, EventArgs e)
