@@ -201,10 +201,10 @@ namespace ProyectoIsomorfismo
             // Llena el dataGridView con la información de la función seleccionada
             for (int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
             {
-                dgvMostrarFuncion[0, i].Value = Convert.ToChar(Convert.ToInt16(
-                    listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta) + 65);
-                dgvMostrarFuncion[1, i].Value = Convert.ToChar(Convert.ToInt16(
-                    listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta) + 97);
+                dgvMostrarFuncion[0, i].Value = 
+                    listaFunciones[cbFunciones.SelectedIndex].V1[i].etiqueta;
+                dgvMostrarFuncion[1, i].Value = 
+                    listaFunciones[cbFunciones.SelectedIndex].V2[i].etiqueta;
             }
         }
 
@@ -866,12 +866,12 @@ namespace ProyectoIsomorfismo
                     for (int j = 0; j < listaFunciones[i].V1.Count; j++)
                     {
                         clGrafo1 =
-                            new PdfPCell(new Phrase(((char)listaFunciones[i].V1[j].ID).
+                            new PdfPCell(new Phrase((listaFunciones[i].V1[j].etiqueta).
                             ToString(), _standardFont));
                         clGrafo1.BorderWidth = 0;
 
                         clGrafo2 =
-                            new PdfPCell(new Phrase(((char)listaFunciones[i].V2[j].ID).
+                            new PdfPCell(new Phrase((listaFunciones[i].V2[j].etiqueta).
                             ToString().ToLower(),
                                 _standardFont));
                         clGrafo2.BorderWidth = 0;
