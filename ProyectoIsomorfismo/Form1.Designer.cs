@@ -1,7 +1,10 @@
-﻿namespace ProyectoIsomorfismo
+﻿using System.Windows.Forms;
+
+namespace ProyectoIsomorfismo
 {
-    partial class Form1
+    public partial class Form1 : Form
     {
+      
         /// <summary>
         /// Required designer variable.
         /// </summary>
