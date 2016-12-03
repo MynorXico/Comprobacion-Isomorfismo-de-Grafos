@@ -13,6 +13,7 @@ namespace ProyectoIsomorfismo
         public List<Vertice> listaVertices { get; set; }
         List<List<Vertice>> listasProbabilidades = new List<List<Vertice>>();
         List<Vertice> numeros = new List<Vertice>();
+        public List<funcion> funcionIsomorfica { get; set; }
 
         
         /// <summary>
@@ -51,7 +52,9 @@ namespace ProyectoIsomorfismo
         /// a una lista
         /// </summary>
         /// <param name="permutacion"></param>
-        public void agregarListaProb(string permutacion)
+        public void agregarListaProb(string permutacion, List<Vertice> vertices1, Matriz
+            matrizAdyacencia1, Matriz matrizAdyacencia2, ref bool encuentraRelacion,
+            ref List<funcion> listaFunciones)
         {
             for (int i = 0; i < permutacion.Length; i++)
             {
@@ -66,7 +69,35 @@ namespace ProyectoIsomorfismo
                     }
                 }
             }
-           listasProbabilidades.Add(new List<Vertice>(numeros));
+
+
+            List<Vertice> vertices2 = new List<Vertice>(numeros);
+            if (vertices1.Count > 9)
+            {
+                // En caso de que la cantidad de vértices sea mayor a nueve, solo se 
+                // genera una función de isomorfismo.
+                Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1,
+                        vertices2);
+                if (Isomorfismo.gradosListasCoinciden(vertices1, vertices2) &&
+                        // Es verdadero si paras el producto de
+                        // (posibleMatriz)*(matrizAdyacencia2)*(matryzAdyacencia2Transpuesta)
+                        // se genera la matriz de adyacencia del primer grafo.
+                        matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(
+                            posibleMatriz, matrizAdyacencia2, OperacionesMatriz.transpose(
+                                posibleMatriz))))
+                {
+                    encuentraRelacion = true;
+                    funcion f = new funcion();
+                    f.V1 = vertices1;
+                    f.V2 = vertices2;
+                    listaFunciones.Add(f);
+                    funcionIsomorfica = listaFunciones;
+                }
+            }
+            else
+            {
+                listasProbabilidades.Add(vertices2);
+            }
         }
 
         /// <summary>

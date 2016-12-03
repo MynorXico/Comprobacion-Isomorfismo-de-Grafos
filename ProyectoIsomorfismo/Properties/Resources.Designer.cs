@@ -69,15 +69,5 @@ namespace ProyectoIsomorfismo.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] TheFinal {
-            get {
-                object obj = ResourceManager.GetObject("TheFinal", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

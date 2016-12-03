@@ -32,15 +32,13 @@
             this.btnGrafo1 = new System.Windows.Forms.Button();
             this.btnGrafo2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnGenerarPdf = new System.Windows.Forms.Button();
             this.btnComprobar = new System.Windows.Forms.Button();
             this.pbLoading = new System.Windows.Forms.ProgressBar();
             this.cbFunciones = new System.Windows.Forms.ComboBox();
             this.dgvMostrarFuncion = new System.Windows.Forms.DataGridView();
             this.colV1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.volV2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cargarDatosDeNuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.gBGrafos = new System.Windows.Forms.GroupBox();
             this.lblGrafo2 = new System.Windows.Forms.Label();
@@ -48,10 +46,9 @@
             this.pBG2 = new System.Windows.Forms.PictureBox();
             this.pBG1 = new System.Windows.Forms.PictureBox();
             this.btnVerGrafos = new System.Windows.Forms.Button();
-            this.btnGenerarPdf = new System.Windows.Forms.Button();
+            this.btnReiniciar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.gBGrafos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBG2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBG1)).BeginInit();
@@ -59,7 +56,7 @@
             // 
             // btnGrafo1
             // 
-            this.btnGrafo1.Location = new System.Drawing.Point(10, 32);
+            this.btnGrafo1.Location = new System.Drawing.Point(10, 26);
             this.btnGrafo1.Name = "btnGrafo1";
             this.btnGrafo1.Size = new System.Drawing.Size(75, 23);
             this.btnGrafo1.TabIndex = 0;
@@ -69,7 +66,7 @@
             // 
             // btnGrafo2
             // 
-            this.btnGrafo2.Location = new System.Drawing.Point(91, 32);
+            this.btnGrafo2.Location = new System.Drawing.Point(91, 26);
             this.btnGrafo2.Name = "btnGrafo2";
             this.btnGrafo2.Size = new System.Drawing.Size(75, 23);
             this.btnGrafo2.TabIndex = 1;
@@ -79,21 +76,33 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnReiniciar);
             this.groupBox1.Controls.Add(this.btnGenerarPdf);
             this.groupBox1.Controls.Add(this.btnGrafo2);
             this.groupBox1.Controls.Add(this.btnGrafo1);
             this.groupBox1.Controls.Add(this.btnComprobar);
-            this.groupBox1.Location = new System.Drawing.Point(14, 36);
+            this.groupBox1.Location = new System.Drawing.Point(14, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(181, 117);
+            this.groupBox1.Size = new System.Drawing.Size(181, 141);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Carga de grafos";
             // 
+            // btnGenerarPdf
+            // 
+            this.btnGenerarPdf.Enabled = false;
+            this.btnGenerarPdf.Location = new System.Drawing.Point(27, 85);
+            this.btnGenerarPdf.Name = "btnGenerarPdf";
+            this.btnGenerarPdf.Size = new System.Drawing.Size(129, 23);
+            this.btnGenerarPdf.TabIndex = 3;
+            this.btnGenerarPdf.Text = "Generar PDF";
+            this.btnGenerarPdf.UseVisualStyleBackColor = true;
+            this.btnGenerarPdf.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btnComprobar
             // 
             this.btnComprobar.Enabled = false;
-            this.btnComprobar.Location = new System.Drawing.Point(27, 61);
+            this.btnComprobar.Location = new System.Drawing.Point(27, 56);
             this.btnComprobar.Name = "btnComprobar";
             this.btnComprobar.Size = new System.Drawing.Size(129, 23);
             this.btnComprobar.TabIndex = 2;
@@ -147,31 +156,6 @@
             this.volV2.ReadOnly = true;
             this.volV2.Width = 60;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(801, 24);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cargarDatosDeNuevoToolStripMenuItem});
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.testToolStripMenuItem.Text = "Test";
-            // 
-            // cargarDatosDeNuevoToolStripMenuItem
-            // 
-            this.cargarDatosDeNuevoToolStripMenuItem.Name = "cargarDatosDeNuevoToolStripMenuItem";
-            this.cargarDatosDeNuevoToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.cargarDatosDeNuevoToolStripMenuItem.Text = "Cargar datos de nuevo";
-            this.cargarDatosDeNuevoToolStripMenuItem.Click += new System.EventHandler(this.cargarDatosDeNuevoToolStripMenuItem_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -189,9 +173,9 @@
             this.gBGrafos.Controls.Add(this.pBG1);
             this.gBGrafos.Controls.Add(this.btnVerGrafos);
             this.gBGrafos.Enabled = false;
-            this.gBGrafos.Location = new System.Drawing.Point(223, 36);
+            this.gBGrafos.Location = new System.Drawing.Point(223, 12);
             this.gBGrafos.Name = "gBGrafos";
-            this.gBGrafos.Size = new System.Drawing.Size(566, 342);
+            this.gBGrafos.Size = new System.Drawing.Size(566, 366);
             this.gBGrafos.TabIndex = 8;
             this.gBGrafos.TabStop = false;
             this.gBGrafos.Text = "Grafos";
@@ -247,16 +231,15 @@
             this.btnVerGrafos.UseVisualStyleBackColor = true;
             this.btnVerGrafos.Click += new System.EventHandler(this.btnVerGrafos_Click);
             // 
-            // btnGenerarPdf
+            // btnReiniciar
             // 
-            this.btnGenerarPdf.Enabled = false;
-            this.btnGenerarPdf.Location = new System.Drawing.Point(27, 90);
-            this.btnGenerarPdf.Name = "btnGenerarPdf";
-            this.btnGenerarPdf.Size = new System.Drawing.Size(129, 23);
-            this.btnGenerarPdf.TabIndex = 3;
-            this.btnGenerarPdf.Text = "Generar PDF";
-            this.btnGenerarPdf.UseVisualStyleBackColor = true;
-            this.btnGenerarPdf.Click += new System.EventHandler(this.button1_Click);
+            this.btnReiniciar.Location = new System.Drawing.Point(27, 114);
+            this.btnReiniciar.Name = "btnReiniciar";
+            this.btnReiniciar.Size = new System.Drawing.Size(129, 23);
+            this.btnReiniciar.TabIndex = 9;
+            this.btnReiniciar.Text = "Reiniciar";
+            this.btnReiniciar.UseVisualStyleBackColor = true;
+            this.btnReiniciar.Click += new System.EventHandler(this.btnReiniciar_Click);
             // 
             // Form1
             // 
@@ -269,16 +252,11 @@
             this.Controls.Add(this.cbFunciones);
             this.Controls.Add(this.pbLoading);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Isomorfismo";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.gBGrafos.ResumeLayout(false);
             this.gBGrafos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBG2)).EndInit();
@@ -299,9 +277,6 @@
         private System.Windows.Forms.DataGridView dgvMostrarFuncion;
         private System.Windows.Forms.DataGridViewTextBoxColumn colV1;
         private System.Windows.Forms.DataGridViewTextBoxColumn volV2;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cargarDatosDeNuevoToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gBGrafos;
         private System.Windows.Forms.PictureBox pBG2;
@@ -310,6 +285,7 @@
         private System.Windows.Forms.Label lblGrafo2;
         private System.Windows.Forms.Label lblGrafo1;
         private System.Windows.Forms.Button btnGenerarPdf;
+        private System.Windows.Forms.Button btnReiniciar;
     }
 }
 
