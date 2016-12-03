@@ -415,18 +415,17 @@ namespace ProyectoIsomorfismo
             Graphics grafo2;
 
             //Pinceles para dibujar vertices
-            Pen redPen = new Pen(Color.Red, 9);
-            Pen greenPen = new Pen(Color.Green, 9);
+            Pen redPen = new Pen(Color.Red, 5);
+            Pen greenPen = new Pen(Color.Green, 5);
 
             //Pinceles para dibujar aristas
-            Pen blackPen = new Pen(Color.Black, 6);
-            Pen redLinesPen = new Pen(Color.Red, 3);
-            Pen yellowLinesPen = new Pen(Color.Yellow, 3);
-            Pen blueLinesPen = new Pen(Color.Blue, 3);
+            Pen blackPen = new Pen(Color.Black, 2);
+            Pen redLinesPen = new Pen(Color.Red, 1);
+            Pen yellowLinesPen = new Pen(Color.Yellow, 1);
+            Pen blueLinesPen = new Pen(Color.Blue, 1);
 
             //Tamaño de fuente para el nombre de las aristas
             Font arial = new Font("Arial", 9);
-            char auxiliar = ' ';
 
             //Almacena las aristas que se repitan en el grafo
             //Obtiene el arreglo que determina cuantas aristas repetidas existen
@@ -478,19 +477,19 @@ namespace ProyectoIsomorfismo
                             //Indica que se ha repetido 1 vez la arista...
                             //Asigna un nuevo color a esa arista..
                             //Manipula el grosor y la ubicacion de la arista...
-                            grafo1.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG1[aux].X + 4, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X + 4, coordenadasVerticesG1[to].Y + 3));
+                            grafo1.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG1[aux].X + 3, coordenadasVerticesG1[aux].Y + 2), new Point(coordenadasVerticesG1[to].X + 3, coordenadasVerticesG1[to].Y + 2));
                             break;
                         case 3:
                             //Indica que se ha repetido 2 veces la arista...
                             //Asigna un nuevo color a esa arista..
                             //Manipula el grosor y la ubicacion de la arista..
-                            grafo1.DrawLine(blueLinesPen, new Point(coordenadasVerticesG1[aux].X - 4, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X - 4, coordenadasVerticesG1[to].Y + 3));
+                            grafo1.DrawLine(blueLinesPen, new Point(coordenadasVerticesG1[aux].X - 3, coordenadasVerticesG1[aux].Y + 2), new Point(coordenadasVerticesG1[to].X - 3, coordenadasVerticesG1[to].Y + 2));
                             break;
                         case 4:
                             //Indica que se ha repetido 3 veces la arista...
                             //Asigna un nuevo color a esa arista..
                             //Manipula el grosor y la ubicacion de la arista..
-                            grafo1.DrawLine(redLinesPen, new Point(coordenadasVerticesG1[aux].X + 8, coordenadasVerticesG1[aux].Y + 3), new Point(coordenadasVerticesG1[to].X + 8, coordenadasVerticesG1[to].Y + 3));
+                            grafo1.DrawLine(redLinesPen, new Point(coordenadasVerticesG1[aux].X + 6, coordenadasVerticesG1[aux].Y + 2), new Point(coordenadasVerticesG1[to].X + 6, coordenadasVerticesG1[to].Y + 2));
                             break;
                     }
                 }
@@ -502,7 +501,7 @@ namespace ProyectoIsomorfismo
             to = 0;
 
             //Obtiene el arreglo que determina cuantas aristas repetidas existen
-            repeticiones = AristasRepetidas(2);
+            int[] repeticiones2 = AristasRepetidas(2);
 
             //Recorre las lista de aristas..
             for (int w = 0; w < g2.cantidadAristas; w++)
@@ -522,7 +521,7 @@ namespace ProyectoIsomorfismo
                 {
                     /* Solo puede analizar hasta 4 aristas repetidas, en caso de existir mas, no se podra ver visualmente
                       en el graficador.*/
-                    switch (repeticiones[w])
+                    switch (repeticiones2[w])
                     {
                         case 1:
                             //En caso que la arista sea única en la lista.
@@ -532,20 +531,20 @@ namespace ProyectoIsomorfismo
                             //Indica que se ha repetido 1 vez la arista...
                             //Asigna un nuevo color a esa arista..
                             //Manipula el grosor y la ubicacion de la arista...
-                            grafo2.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG2[aux].X + 4, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X + 4, coordenadasVerticesG2[to].Y + 3));
+                            grafo2.DrawLine(yellowLinesPen, new Point(coordenadasVerticesG2[aux].X + 3, coordenadasVerticesG2[aux].Y + 2), new Point(coordenadasVerticesG2[to].X + 3, coordenadasVerticesG2[to].Y + 2));
                             break;
                         case 3:
 
                             //Indica que se ha repetido 2 veces la arista...
                             //Asigna un nuevo color a esa arista..
                             //Manipula el grosor y la ubicacion de la arista...
-                            grafo2.DrawLine(blueLinesPen, new Point(coordenadasVerticesG2[aux].X - 4, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X - 4, coordenadasVerticesG2[to].Y + 3));
+                            grafo2.DrawLine(blueLinesPen, new Point(coordenadasVerticesG2[aux].X - 3, coordenadasVerticesG2[aux].Y + 2), new Point(coordenadasVerticesG2[to].X - 3, coordenadasVerticesG2[to].Y + 2));
                             break;
                         case 4:
                             //Indica que se ha repetido 3 veces la arista...
                             //Asigna un nuevo color a esa arista..
                             //Manipula el grosor y la ubicacion de la arista...
-                            grafo2.DrawLine(redLinesPen, new Point(coordenadasVerticesG2[aux].X + 8, coordenadasVerticesG2[aux].Y + 3), new Point(coordenadasVerticesG2[to].X + 8, coordenadasVerticesG2[to].Y + 3));
+                            grafo2.DrawLine(redLinesPen, new Point(coordenadasVerticesG2[aux].X + 6, coordenadasVerticesG2[aux].Y + 2), new Point(coordenadasVerticesG2[to].X + 6, coordenadasVerticesG2[to].Y + 2));
                             break;
                     }
                 }
@@ -562,12 +561,11 @@ namespace ProyectoIsomorfismo
             {  
                 /* Genera un rectangulo sobre el cual se dibujará la elipse rellena que 
                   representará un vertice del grafo.*/
-                Rectangle r = new Rectangle(coordenadasVerticesG1[i].X, coordenadasVerticesG1[i].Y, 8, 8);
+                Rectangle r = new Rectangle(coordenadasVerticesG1[i].X, coordenadasVerticesG1[i].Y, 5, 5);
                 grafo1.DrawEllipse(redPen, r);
 
                 /* Asigna un identificador a cada vertice del grafo*/
-                auxiliar = Convert.ToChar(i + 65);
-                grafo1.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG1[i].X + 12, coordenadasVerticesG1[i].Y -6));
+                grafo1.DrawString(Convert.ToString(i), arial, Brushes.Blue, new PointF(coordenadasVerticesG1[i].X + 8 , coordenadasVerticesG1[i].Y -4));
             }
 
             //Dibuja los vertices del grafo 2
@@ -575,12 +573,11 @@ namespace ProyectoIsomorfismo
             {
                 /* Genera un rectangulo sobre el cual se dibujará la elipse rellena que 
                   representará un vertice del grafo.*/
-                Rectangle r = new Rectangle(coordenadasVerticesG2[j].X, coordenadasVerticesG2[j].Y, 8, 8);
+                Rectangle r = new Rectangle(coordenadasVerticesG2[j].X, coordenadasVerticesG2[j].Y, 5, 5);
                 grafo2.DrawEllipse(greenPen, r);
 
                 /* Asigna un identificador a cada vertice del grafo*/
-                auxiliar = Convert.ToChar(j + 97);
-                grafo2.DrawString(Convert.ToString(auxiliar), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 12, coordenadasVerticesG2[j].Y -6));
+                grafo2.DrawString(Convert.ToString(j), arial, Brushes.Blue, new PointF(coordenadasVerticesG2[j].X + 8 , coordenadasVerticesG2[j].Y -4));
             }
             #endregion
         }
@@ -595,14 +592,8 @@ namespace ProyectoIsomorfismo
         private int[] AristasRepetidas(int grafo)
         {
             //Crea el arreglo del mismo tamaño que la lista de aristas..
-            int[] repeticiones = new int[g1.cantidadAristas];
+            int[] repeticiones = new int[1];
             int count = 1;
-
-            //Llena el arreglo con 1 para indicar que existe una vez esa arista en la lista..
-            for (int x = 0; x < repeticiones.Length; x++)
-            {
-                repeticiones[x] = count;
-            }
 
             //Elige sobre cual grafo va operar..
             //En nuestro caso tenemos solo 2 grafos..
@@ -610,6 +601,14 @@ namespace ProyectoIsomorfismo
             {
                 case 1:
                     //Grafo 1
+
+                    repeticiones = new int[g1.cantidadAristas];
+
+                    //Llena el arreglo con 1 para indicar que existe una vez esa arista en la lista..
+                    for (int x = 0; x < repeticiones.Length; x++)
+                    {
+                        repeticiones[x] = count;
+                    }
 
                     //Recorre la lista de aristas buscando aristas repetidas...
                     for (int j = 0; j < g1.cantidadAristas; j++)
@@ -640,6 +639,14 @@ namespace ProyectoIsomorfismo
                     break;
                 case 2:
                     //Grafo 2
+
+                    repeticiones = new int[g2.cantidadAristas];
+
+                    //Llena el arreglo con 1 para indicar que existe una vez esa arista en la lista..
+                    for (int x = 0; x < repeticiones.Length; x++)
+                    {
+                        repeticiones[x] = count;
+                    }
 
                     //Recorre la lista de aristas buscando aristas repetidas...
                     for (int j = 0; j < g2.cantidadAristas; j++)

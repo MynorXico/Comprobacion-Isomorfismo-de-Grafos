@@ -2,11 +2,6 @@ C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\De
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Form1.resources
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Properties.Resources.resources
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csproj.GenerateResource.Cache
-C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe.config
-C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.exe
-C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.pdb
-C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.exe
-C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\ProyectoIsomorfismo.pdb
 C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.csprojResolveAssemblyReference.cache
 C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Form1.resources
 C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\ProyectoIsomorfismo.Properties.Resources.resources
@@ -29,3 +24,10 @@ C:\Users\Derek\Desktop\final countdown\ProyectoIsomorfismo\ProyectoIsomorfismo\b
 C:\Users\Derek\Desktop\final countdown\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\itextsharp.xml
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\itextsharp.dll
 C:\Users\Sony i3\Documents\GitHub\ProyectoIsomorfismo\ProyectoIsomorfismo\bin\Debug\itextsharp.xml
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\Isomorfismo.exe.config
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\Isomorfismo.exe
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\obj\Debug\Isomorfismo.pdb
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\Isomorfismo.exe
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\Isomorfismo.pdb
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\itextsharp.dll
+C:\Users\Bryan\Documents\Proyecto Isomorfismo - Discreta II\ProyectoIsomorfismo\bin\Debug\itextsharp.xml
