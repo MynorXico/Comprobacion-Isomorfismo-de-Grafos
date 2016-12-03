@@ -11,7 +11,6 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
-using WMPLib;
 using Font = System.Drawing.Font;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
@@ -25,7 +24,6 @@ namespace ProyectoIsomorfismo
         const int ANGULO_CIRCULO = 360;
         private Coordenadas[] coordenadasVerticesG1;
         private Coordenadas[] coordenadasVerticesG2;
-        WindowsMediaPlayer sonido;
 
         // Grafos       
         Grafo g1;
@@ -36,24 +34,6 @@ namespace ProyectoIsomorfismo
         public Form1()
         {
             InitializeComponent();
-            try
-            {
-                if (sonido == null)
-                {
-                    sonido = new WindowsMediaPlayer();
-                    byte[] b = ProyectoIsomorfismo.Properties.Resources.TheFinal;
-                    FileInfo fileInfo = new FileInfo("test.mp3");
-                    FileStream fs = fileInfo.OpenWrite();
-                    fs.Write(b, 0, b.Length);
-                    fs.Close();
-                    sonido.URL = fileInfo.Name;
-                    //sonido.controls.play();
-                }
-            }
-            catch (Exception sound)
-            {
-
-            }
         }
 
         /// <summary>
@@ -94,7 +74,8 @@ namespace ProyectoIsomorfismo
             CargaDatos c1 = new CargaDatos();
             if (c1.cargarGrafo(ref g2))
             {
-                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El grafo fue cargado correctamente.", "Carga exitosa", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnGrafo2.Enabled = false;
                 if (!btnGrafo1.Enabled)
                 {
@@ -108,7 +89,8 @@ namespace ProyectoIsomorfismo
             }
             else
             {
-                MessageBox.Show("El grafo no se cargó corectamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El grafo no se cargó corectamente", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -144,15 +126,18 @@ namespace ProyectoIsomorfismo
         private void btnComprobar_Click(object sender, EventArgs e)
         {
            
-            if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, ref listaFunciones))
+            if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, 
+                ref listaFunciones))
             {
-                MessageBox.Show("Los grafos no son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Los grafos no son isomorfos.", "Resultado", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 cbFunciones.Enabled = true;
                 dgvMostrarFuncion.Enabled = true;
-                MessageBox.Show("Los grafos son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Los grafos son isomorfos.", "Resultado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnGenerarPdf.Enabled = true;
             }
             btnComprobar.Enabled = false;
@@ -287,14 +272,15 @@ namespace ProyectoIsomorfismo
 
                 default:
 
-                    /*Math.Sin(), opera con radianes por lo que se realizo la conversion del angulo en grados 
-                    a radianes utilizando la operacion Math.PI/180 */
+                    // Math.Sin(), opera con radianes por lo que se realizo la conversion
+                    // del angulo en grados a radianes utilizando la operacion Math.PI/180
 
                     //Primer cuadrante
                     if (angulo < 90 && angulo > 0)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((angulo) * (Math.PI / 180)));
+                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((angulo) * 
+                            (Math.PI / 180)));
                         break;
                     }
 
@@ -302,7 +288,8 @@ namespace ProyectoIsomorfismo
                     if (angulo < 180 && angulo > 90)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((180 - angulo) * (Math.PI / 180)));
+                        coordenadaY = coordenadaY - (int)(radio * Math.Sin((180 - angulo) * 
+                            (Math.PI / 180)));
                         break;
                     }
 
@@ -310,7 +297,8 @@ namespace ProyectoIsomorfismo
                     if (angulo < 270 && angulo > 180)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY + (int)(radio * Math.Sin((angulo - 180) * (Math.PI / 180)));
+                        coordenadaY = coordenadaY + (int)(radio * Math.Sin((angulo - 180) * 
+                            (Math.PI / 180)));
                         break;
                     }
 
@@ -318,7 +306,8 @@ namespace ProyectoIsomorfismo
                     if (angulo < 360 && angulo > 270)
                     {
                         coordenadaY = centroY;
-                        coordenadaY = coordenadaY + (int)(radio * Math.Sin((360 - angulo) * (Math.PI / 180)));
+                        coordenadaY = coordenadaY + (int)(radio * Math.Sin((360 - angulo) *
+                            (Math.PI / 180)));
                         break;
                     }
                     break;
@@ -359,14 +348,15 @@ namespace ProyectoIsomorfismo
 
                 default:
 
-                    /*Math.Sin(), opera con radianes por lo que se realizo la conversion del angulo en grados 
-                    a radianes utilizando la operacion Math.PI/180 */
+                    // Math.Sin(), opera con radianes por lo que se realizo la conversion 
+                    // del angulo en grados a radianes utilizando la operacion Math.PI/180 */
                     
                     //Primer cuadrante
                     if (angulo < 90 && angulo > 0)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - angulo) * (Math.PI / 180)));
+                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - angulo) * 
+                            (Math.PI / 180)));
                         break;
                     }
 
@@ -374,7 +364,8 @@ namespace ProyectoIsomorfismo
                     if (angulo < 180 && angulo > 90)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX - (int)(radio * Math.Sin((90 - (180 - angulo)) * (Math.PI / 180)));
+                        coordenadaX = coordenadaX - (int)(radio * Math.Sin((90 - (180 - 
+                            angulo)) * (Math.PI / 180)));
                         break;
                     }
 
@@ -382,7 +373,8 @@ namespace ProyectoIsomorfismo
                     if (angulo < 270 && angulo > 180)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX - (int)(radio * Math.Sin((90 - (angulo - 180)) * (Math.PI / 180)));
+                        coordenadaX = coordenadaX - (int)(radio * Math.Sin((90 - (angulo -
+                            180)) * (Math.PI / 180)));
                         break;
                     }
 
@@ -390,7 +382,8 @@ namespace ProyectoIsomorfismo
                     if (angulo < 360 && angulo > 270)
                     {
                         coordenadaX = centroX;
-                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - (360 - angulo)) * (Math.PI / 180)));
+                        coordenadaX = coordenadaX + (int)(radio * Math.Sin((90 - (360 - 
+                            angulo)) * (Math.PI / 180)));
                         break;
                     }
                     break;
@@ -620,9 +613,11 @@ namespace ProyectoIsomorfismo
 
                         for (int i = j + 1; i < g1.cantidadAristas; i++)
                         {
-                            if (g1.lstAristas[j].from == g1.lstAristas[i].from || g1.lstAristas[j].from == g1.lstAristas[i].to)
+                            if (g1.lstAristas[j].from == g1.lstAristas[i].from ||
+                                g1.lstAristas[j].from == g1.lstAristas[i].to)
                             {
-                                if (g1.lstAristas[j].to == g1.lstAristas[i].to || g1.lstAristas[j].to == g1.lstAristas[i].from)
+                                if (g1.lstAristas[j].to == g1.lstAristas[i].to || 
+                                    g1.lstAristas[j].to == g1.lstAristas[i].from)
                                 {
                                     //Si encuentra una arista repetida le asigna el valor que tenga count...
                                     //Por ejemplo si fuera la tercera arista igual, el valor de count será 3...
@@ -648,9 +643,11 @@ namespace ProyectoIsomorfismo
 
                         for (int i = j + 1; i < g2.cantidadAristas; i++)
                         {
-                            if (g2.lstAristas[j].from == g2.lstAristas[i].from || g2.lstAristas[j].from == g2.lstAristas[i].to)
+                            if (g2.lstAristas[j].from == g2.lstAristas[i].from || 
+                                g2.lstAristas[j].from == g2.lstAristas[i].to)
                             {
-                                if (g2.lstAristas[j].to == g2.lstAristas[i].to || g2.lstAristas[j].to == g2.lstAristas[i].from)
+                                if (g2.lstAristas[j].to == g2.lstAristas[i].to || 
+                                    g2.lstAristas[j].to == g2.lstAristas[i].from)
                                 {
                                     //Si encuentra una arista repetida le asigna el valor que tenga count...
                                     //Por ejemplo si fuera la tercera arista igual, el valor de count será 3...
@@ -760,16 +757,7 @@ namespace ProyectoIsomorfismo
             return centroY;
         }
 
-        /// <summary>
-        /// Funcion que borra el elemento al cerrar el form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if(File.Exists("test.mp3"))
-            File.Delete("test.mp3");
-        }
+        
 
         /// <summary>
         /// Funcion que genera el reporte de las funciones isomórficas en PDF
