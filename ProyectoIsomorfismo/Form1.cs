@@ -831,5 +831,10 @@ namespace ProyectoIsomorfismo
                 MessageBox.Show("Cierre el archivo de isomórfismo que tiene abierto antes de generar uno nuevo.");
             }     
         }
+
+        private void btnReiniciar_Click(object sender, EventArgs e)
+        {
+            Reiniciar();
+        }
     }
 }
