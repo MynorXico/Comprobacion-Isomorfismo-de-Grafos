@@ -135,7 +135,7 @@ namespace ProyectoIsomorfismo
         /// <param name="lista2"> Segunda lista</param>
         /// <returns> Verdadero si coinciden los grados en el mismo orden en la listas. 
         /// </returns>
-        private static bool gradosListasCoinciden(List<Vertice> lista1, 
+        public static bool gradosListasCoinciden(List<Vertice> lista1, 
             List<Vertice> lista2)
         {
             if (lista1.Count != lista2.Count)
@@ -197,46 +197,60 @@ namespace ProyectoIsomorfismo
             // Lista que almacena los vértices del primer grafo
             List<Vertice> vertices1 = g1.lstVertices;
 
-            // Lista de que almacena todas las posibles permutaciones de vértices del
-            // primer grafo
-            List<List<Vertice>> permutacionesV2= p.combinar(g2.lstVertices);
+            
 
             // Se crean las matrices de adyacencia de los dos grafos
             Matriz matrizAdyacencia1 = g1.matrizAdyacencia();
             Matriz matrizAdyacencia2 = g2.matrizAdyacencia();
 
+            // Lista de que almacena todas las posibles permutaciones de vértices del
+            // primer grafo
+            List<List<Vertice>> permutacionesV2 = p.combinar(g2.lstVertices, vertices1, matrizAdyacencia1, matrizAdyacencia2, ref pruebaSuperada, ref listaFunciones);
+
             barraProgreso.Maximum = permutacionesV2.Count;
+
+
             int numeroFunciones = 0;
 
             // Realiza el proceso por cada una de las permutaciones realizadas para el
             // listado de vértices del segundo grafo
-            foreach (List<Vertice> vertices2 in permutacionesV2)
-            {                
-                barraProgreso.Value++;
-                // Se genera una posible matriz con los dos listados de vértices
-                Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1, 
-                    vertices2);
-                // Verifica que en la permutación actual almenos coincidan los grados de
-                // los vértices, de lo contrario es inútil continuar buscando la matriz.
-                if(gradosListasCoinciden(vertices1, vertices2) &&
-                    // Es verdadero si para el producto de
-                    // (posibleMatriz)*(matrizAdyacencia2)*(matryzAdyacencia2Transpuesta)
-                    // se genera la matriz de adyacencia del primer grafo.
-                    matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(
-                        posibleMatriz,matrizAdyacencia2, OperacionesMatriz.transpose(
-                            posibleMatriz)))){
-                    funcion funcionNueva = new funcion(); // Se crea una nueva función
-                    funcionNueva.V1 = vertices1;
-                    funcionNueva.V2 = vertices2;
-                    // La función creada se añade a la lista de funciones
-                    lstFuncionesEncontradas.Add(funcionNueva);
-                    numeroFunciones++;
-                    cbFunciones.Items.Add(string.Format("Funcion #{0}", numeroFunciones));
-                    pruebaSuperada = true;
-                    if(vertices1.Count > 9)
-                        break;
+            if (pruebaSuperada)
+            {
+                cbFunciones.Items.Add(string.Format("Funcion #1", numeroFunciones));
+                sw.Stop();
+            }
+            else
+            {
+                foreach (List<Vertice> vertices2 in permutacionesV2)
+                {
+                    barraProgreso.Value++;
+                    // Se genera una posible matriz con los dos listados de vértices
+                    Matriz posibleMatriz = OperacionesMatriz.generarMatrizPosible(vertices1,
+                        vertices2);
+                    // Verifica que en la permutación actual almenos coincidan los grados de
+                    // los vértices, de lo contrario es inútil continuar buscando la matriz.
+                    if (gradosListasCoinciden(vertices1, vertices2) &&
+                        // Es verdadero si para el producto de
+                        // (posibleMatriz)*(matrizAdyacencia2)*(matryzAdyacencia2Transpuesta)
+                        // se genera la matriz de adyacencia del primer grafo.
+                        matrizAdyacencia1.equivalent(OperacionesMatriz.multiplicar(
+                            posibleMatriz, matrizAdyacencia2, OperacionesMatriz.transpose(
+                                posibleMatriz))))
+                    {
+                        funcion funcionNueva = new funcion(); // Se crea una nueva función
+                        funcionNueva.V1 = vertices1;
+                        funcionNueva.V2 = vertices2;
+                        // La función creada se añade a la lista de funciones
+                        lstFuncionesEncontradas.Add(funcionNueva);
+                        numeroFunciones++;
+                        cbFunciones.Items.Add(string.Format("Funcion #{0}", numeroFunciones));
+                        pruebaSuperada = true;
+                        if (vertices1.Count > 9)
+                            break;
+                    }
                 }
             }
+            
             listaFunciones = lstFuncionesEncontradas;
             sw.Stop();
             // Muestra información del proceso al usuario

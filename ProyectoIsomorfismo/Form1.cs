@@ -33,6 +33,7 @@ namespace ProyectoIsomorfismo
 
         public Form1()
         {
+            listaFunciones = new List<funcion>();
             InitializeComponent();
         }
 
@@ -64,7 +65,7 @@ namespace ProyectoIsomorfismo
                     MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
         }
-
+        
         /// <summary>
         /// Carag del segundo grafo
         /// </summary>
@@ -104,6 +105,7 @@ namespace ProyectoIsomorfismo
             pbLoading.Maximum = 0;
             btnGrafo1.Enabled = true;
             btnGrafo2.Enabled = true;
+            btnGenerarPdf.Enabled = false;
             btnVerGrafos.Enabled = false;
             pBG1.Image = null;
             pBG2.Image = null;
@@ -156,6 +158,9 @@ namespace ProyectoIsomorfismo
                     dgvMostrarFuncion.Rows.Add();
                 }
             }
+            if(g1.lstVertices.Count > 9)
+                listaFunciones = PermutadorUtilities.getInstancia().funcionIsomorfica;
+
             // Llena el dataGridView con la información de la función seleccionada
             for(int i = 0; i < listaFunciones[cbFunciones.SelectedIndex].V1.Count; i++)
             {

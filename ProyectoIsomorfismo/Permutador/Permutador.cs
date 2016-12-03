@@ -13,7 +13,7 @@ namespace ProyectoIsomorfismo
         /// </summary>
         /// <param name="listaPermutada"></param>
         /// <returns></returns>
-        public List<List<Vertice>> combinar(List<Vertice> listaPermutada )
+        public List<List<Vertice>> combinar(List<Vertice> listaPermutada, List<Vertice> vertices1, Matriz matrizAdyacencia1, Matriz matrizAdyacencia2, ref bool encuentraRelacion, ref List<funcion> listaFunciones)
         {
             /* Se reinician las permutaciones por si alguna lista estaba llena en las uti
             lidades a través de Singleton. */
@@ -36,7 +36,7 @@ namespace ProyectoIsomorfismo
             }
 
             // Se manda a combinar la cadena. 
-            Combinacion(permutarCadena);
+            Combinacion(permutarCadena, vertices1, matrizAdyacencia1, matrizAdyacencia2, ref encuentraRelacion, ref listaFunciones);
 
             // Se reciben todas las combinaciones en una lista.
             lista = PermutadorUtilities.getInstancia().obtenerListasPermutadas();
@@ -48,10 +48,10 @@ namespace ProyectoIsomorfismo
         /// Funcion que manda a combinar el string con un array booleano 
         /// </summary>
         /// <param name="s"></param>
-        public void Combinacion(string s)
+        public void Combinacion(string s, List<Vertice> vertices1, Matriz matrizAdyacencia1, Matriz matrizAdyacencia2, ref bool encuentraRelacion, ref List<funcion> listaFunciones)
         {
             bool[] esIgual = new bool[s.Length];
-            Combinaciones(s, "", esIgual);
+            Combinaciones(s, "", esIgual, vertices1, matrizAdyacencia1, matrizAdyacencia2, ref encuentraRelacion, ref listaFunciones);
         }
 
         /// <summary>
@@ -61,25 +61,35 @@ namespace ProyectoIsomorfismo
         /// <param name="cadena"></param>
         /// <param name="combinacion"></param>
         /// <param name="iguales"></param>
-        public void Combinaciones(string cadena, string combinacion, bool[] iguales)
+        public void Combinaciones(string cadena, string combinacion, bool[] iguales, List<Vertice> vertices1, Matriz matrizAdyacencia1, Matriz matrizAdyacencia2, ref bool encuentraRelacion, ref List<funcion> listaFunciones)
         {
+            if (encuentraRelacion)
+            {
+                return;
+            }
 
             if (cadena.Length == combinacion.Length)
             {
                 // Se manda a agregar la combinación en las utilidades del permutador.
-                PermutadorUtilities.getInstancia().agregarListaProb(combinacion);
+                PermutadorUtilities.getInstancia().agregarListaProb(combinacion, vertices1, matrizAdyacencia1, matrizAdyacencia2, ref encuentraRelacion, ref listaFunciones);
                 /* Se limpia el array que se utilizo para agregar cada vertice según
                 su ID en la cadena enviada. */
                 PermutadorUtilities.getInstancia().clearNumeros();
             }
             
+
             //Se generan todas las combinaciones y si son iguales se descartan
             for (int i = 0; i < iguales.Length; i++)
             {
+                if (encuentraRelacion)
+                    return;
                 if (!iguales[i])
                 {
+                    if (encuentraRelacion)
+                        break;
+
                     iguales[i] = true;
-                    Combinaciones(cadena, combinacion + cadena[i], iguales);
+                    Combinaciones(cadena, combinacion + cadena[i], iguales, vertices1, matrizAdyacencia1, matrizAdyacencia2, ref encuentraRelacion, ref listaFunciones);
                     iguales[i] = false;
                 }
             }
