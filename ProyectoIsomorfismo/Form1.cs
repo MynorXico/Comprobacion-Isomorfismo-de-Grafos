@@ -8,7 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using WMPLib;
+using Font = System.Drawing.Font;
+using Image = System.Drawing.Image;
+using Rectangle = System.Drawing.Rectangle;
 
 
 namespace ProyectoIsomorfismo
@@ -19,6 +25,7 @@ namespace ProyectoIsomorfismo
         const int ANGULO_CIRCULO = 360;
         private Coordenadas[] coordenadasVerticesG1;
         private Coordenadas[] coordenadasVerticesG2;
+        WindowsMediaPlayer sonido;
 
         // Grafos       
         Grafo g1;
@@ -29,6 +36,24 @@ namespace ProyectoIsomorfismo
         public Form1()
         {
             InitializeComponent();
+            try
+            {
+                if (sonido == null)
+                {
+                    sonido = new WindowsMediaPlayer();
+                    byte[] b = ProyectoIsomorfismo.Properties.Resources.TheFinal;
+                    FileInfo fileInfo = new FileInfo("test.mp3");
+                    FileStream fs = fileInfo.OpenWrite();
+                    fs.Write(b, 0, b.Length);
+                    fs.Close();
+                    sonido.URL = fileInfo.Name;
+                    //sonido.controls.play();
+                }
+            }
+            catch (Exception sound)
+            {
+
+            }
         }
 
         /// <summary>
@@ -111,31 +136,14 @@ namespace ProyectoIsomorfismo
             }
         }
 
-        WindowsMediaPlayer sonido;
+        
 
         /// <summary>
         /// Comprueba isomorfismo entre los dos grafos cargados
         /// </summary>
         private void btnComprobar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (sonido == null)
-                {
-                    sonido = new WindowsMediaPlayer();
-                    byte[] b = ProyectoIsomorfismo.Properties.Resources.TheFinal;
-                    FileInfo fileInfo = new FileInfo("test.mp3");
-                    FileStream fs = fileInfo.OpenWrite();
-                    fs.Write(b, 0, b.Length);
-                    fs.Close();
-                    sonido.URL = fileInfo.Name;
-                    sonido.controls.play();
-                }
-            }
-            catch (Exception sound)
-            {
-
-            }
+           
             if(!Isomorfismo.comprobarIsomorfismo(g1, g2, pbLoading, cbFunciones, ref listaFunciones))
             {
                 MessageBox.Show("Los grafos no son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -145,6 +153,7 @@ namespace ProyectoIsomorfismo
                 cbFunciones.Enabled = true;
                 dgvMostrarFuncion.Enabled = true;
                 MessageBox.Show("Los grafos son isomorfos.", "Resultado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnGenerarPdf.Enabled = true;
             }
             btnComprobar.Enabled = false;
         }
@@ -751,10 +760,88 @@ namespace ProyectoIsomorfismo
             return centroY;
         }
 
+        /// <summary>
+        /// Funcion que borra el elemento al cerrar el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if(File.Exists("test.mp3"))
             File.Delete("test.mp3");
+        }
+
+        /// <summary>
+        /// Funcion que genera el reporte de las funciones isomórficas en PDF
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Variables para escribir en el pdf
+            PdfWriter writer;
+            Document doc = new Document(PageSize.LETTER);
+
+            try
+            {
+                //Path en donde se escribira el archivo
+                writer = PdfWriter.GetInstance(doc, new FileStream(Directory.GetCurrentDirectory() + "\\Funciones de Isomorfismo.pdf", FileMode.Create));
+
+                //Autores del archivo
+                doc.AddAuthor("Matemática Discreta II");
+                doc.AddCreator("Alumnos de Matemática Discreta II");
+                doc.Open();
+
+                //Fuente del archivo
+                iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                doc.Add(new Paragraph("Lista de funciones isomórficas - Matemática Discreta II"));
+                doc.Add(Chunk.NEWLINE);
+
+                //Se escriben todas las funciones isomorficas recorriendo la lista de funciones con un for
+                for (int i = 0; i < listaFunciones.Count; i++)
+                {
+                    doc.Add(new Paragraph("Función Isomórfica No. " + (i + 1)));
+                    PdfPTable tblIsomorfismo = new PdfPTable(2);
+                    tblIsomorfismo.WidthPercentage = 100;
+
+                    PdfPCell clGrafo1 = new PdfPCell(new Phrase("Grafo 1", _standardFont));
+                    clGrafo1.BorderWidth = 0;
+                    clGrafo1.BorderWidthBottom = 0.75f;
+
+                    PdfPCell clGrafo2 = new PdfPCell(new Phrase("Grafo 2", _standardFont));
+                    clGrafo2.BorderWidth = 0;
+                    clGrafo2.BorderWidthBottom = 0.75f;
+
+                    tblIsomorfismo.AddCell(clGrafo1);
+                    tblIsomorfismo.AddCell(clGrafo2);
+
+                    for (int j = 0; j < listaFunciones[i].V1.Count; j++)
+                    {
+                        clGrafo1 = new PdfPCell(new Phrase(((char)listaFunciones[i].V1[j].ID).ToString(), _standardFont));
+                        clGrafo1.BorderWidth = 0;
+
+                        clGrafo2 = new PdfPCell(new Phrase(((char)listaFunciones[i].V2[j].ID).ToString().ToLower(), _standardFont));
+                        clGrafo2.BorderWidth = 0;
+                        tblIsomorfismo.AddCell(clGrafo1);
+                        tblIsomorfismo.AddCell(clGrafo2);
+                    }
+
+                    doc.Add(tblIsomorfismo);
+                    doc.Add(new LineSeparator());
+                    doc.Add(new LineSeparator());
+                    doc.Add(Chunk.NEWLINE);
+                }
+
+                //Se cierra el documento y el escribidor.
+                doc.Close();
+                writer.Close();
+                btnGenerarPdf.Enabled = false;
+            }
+            catch (IOException file)
+            {
+                //Si se intenta generar un archivo cuando este esta abierto marca error
+                MessageBox.Show("Cierre el archivo de isomórfismo que tiene abierto antes de generar uno nuevo.");
+            }     
         }
     }
 }

@@ -48,6 +48,7 @@
             this.pBG2 = new System.Windows.Forms.PictureBox();
             this.pBG1 = new System.Windows.Forms.PictureBox();
             this.btnVerGrafos = new System.Windows.Forms.Button();
+            this.btnGenerarPdf = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMostrarFuncion)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -78,12 +79,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnGenerarPdf);
             this.groupBox1.Controls.Add(this.btnGrafo2);
             this.groupBox1.Controls.Add(this.btnGrafo1);
             this.groupBox1.Controls.Add(this.btnComprobar);
             this.groupBox1.Location = new System.Drawing.Point(14, 36);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(181, 91);
+            this.groupBox1.Size = new System.Drawing.Size(181, 117);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Carga de grafos";
@@ -101,7 +103,7 @@
             // 
             // pbLoading
             // 
-            this.pbLoading.Location = new System.Drawing.Point(14, 334);
+            this.pbLoading.Location = new System.Drawing.Point(14, 355);
             this.pbLoading.Name = "pbLoading";
             this.pbLoading.Size = new System.Drawing.Size(181, 23);
             this.pbLoading.TabIndex = 3;
@@ -111,7 +113,7 @@
             this.cbFunciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFunciones.Enabled = false;
             this.cbFunciones.FormattingEnabled = true;
-            this.cbFunciones.Location = new System.Drawing.Point(14, 151);
+            this.cbFunciones.Location = new System.Drawing.Point(14, 172);
             this.cbFunciones.Name = "cbFunciones";
             this.cbFunciones.Size = new System.Drawing.Size(181, 21);
             this.cbFunciones.TabIndex = 4;
@@ -126,7 +128,7 @@
             this.colV1,
             this.volV2});
             this.dgvMostrarFuncion.Enabled = false;
-            this.dgvMostrarFuncion.Location = new System.Drawing.Point(14, 178);
+            this.dgvMostrarFuncion.Location = new System.Drawing.Point(14, 199);
             this.dgvMostrarFuncion.Name = "dgvMostrarFuncion";
             this.dgvMostrarFuncion.Size = new System.Drawing.Size(181, 150);
             this.dgvMostrarFuncion.TabIndex = 5;
@@ -173,7 +175,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 135);
+            this.label1.Location = new System.Drawing.Point(12, 156);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(122, 13);
             this.label1.TabIndex = 7;
@@ -189,7 +191,7 @@
             this.gBGrafos.Enabled = false;
             this.gBGrafos.Location = new System.Drawing.Point(223, 36);
             this.gBGrafos.Name = "gBGrafos";
-            this.gBGrafos.Size = new System.Drawing.Size(566, 321);
+            this.gBGrafos.Size = new System.Drawing.Size(566, 342);
             this.gBGrafos.TabIndex = 8;
             this.gBGrafos.TabStop = false;
             this.gBGrafos.Text = "Grafos";
@@ -219,7 +221,7 @@
             this.pBG2.Enabled = false;
             this.pBG2.Location = new System.Drawing.Point(295, 84);
             this.pBG2.Name = "pBG2";
-            this.pBG2.Size = new System.Drawing.Size(250, 220);
+            this.pBG2.Size = new System.Drawing.Size(250, 229);
             this.pBG2.TabIndex = 2;
             this.pBG2.TabStop = false;
             // 
@@ -230,7 +232,7 @@
             this.pBG1.Enabled = false;
             this.pBG1.Location = new System.Drawing.Point(21, 84);
             this.pBG1.Name = "pBG1";
-            this.pBG1.Size = new System.Drawing.Size(250, 220);
+            this.pBG1.Size = new System.Drawing.Size(250, 229);
             this.pBG1.TabIndex = 1;
             this.pBG1.TabStop = false;
             // 
@@ -245,11 +247,22 @@
             this.btnVerGrafos.UseVisualStyleBackColor = true;
             this.btnVerGrafos.Click += new System.EventHandler(this.btnVerGrafos_Click);
             // 
+            // btnGenerarPdf
+            // 
+            this.btnGenerarPdf.Enabled = false;
+            this.btnGenerarPdf.Location = new System.Drawing.Point(27, 90);
+            this.btnGenerarPdf.Name = "btnGenerarPdf";
+            this.btnGenerarPdf.Size = new System.Drawing.Size(129, 23);
+            this.btnGenerarPdf.TabIndex = 3;
+            this.btnGenerarPdf.Text = "Generar PDF";
+            this.btnGenerarPdf.UseVisualStyleBackColor = true;
+            this.btnGenerarPdf.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 374);
+            this.ClientSize = new System.Drawing.Size(801, 390);
             this.Controls.Add(this.gBGrafos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvMostrarFuncion);
@@ -296,6 +309,7 @@
         private System.Windows.Forms.Button btnVerGrafos;
         private System.Windows.Forms.Label lblGrafo2;
         private System.Windows.Forms.Label lblGrafo1;
+        private System.Windows.Forms.Button btnGenerarPdf;
     }
 }
 
